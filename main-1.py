@@ -3,6 +3,7 @@ from enum import Enum
 PRIMES: list[int] = [2, 3, 5, 7, 11, 13]
 
 
+# noinspection DuplicatedCode
 class Num:
     """
     Num class for precise calculations.
