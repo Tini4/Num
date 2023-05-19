@@ -1,7 +1,7 @@
 from enum import Enum
 from math import inf
 
-from primes import PRIMES
+from primes import PRIMES, PRIMES_MAX, PRIMES_TO
 
 
 class Num:
