@@ -1,7 +1,7 @@
 from enum import Enum
-from math import inf
+from math import inf, log10
 
-from primes import PRIMES, PRIMES_MAX, PRIMES_TO
+from src.primes.primes import PRIMES, PRIMES_TO
 
 
 class Num:
@@ -22,6 +22,40 @@ class Num:
         self.primes: dict[int, int] = {}
         self.sign: Num.Sign = Num.Sign.POSITIVE
         self.case: Num.Case = Num.Case.UNDEFINED
+
+    def _modify_prime_factorization(self, integer: int, sign: Sign):
+        if integer > PRIMES_TO:
+            print('overflow')
+            size_integer: int = int(log10(integer))+1
+            size_primes: int = int(log10(PRIMES_TO))+1
+
+            print(size_primes, size_integer)
+
+            over: int = size_integer - size_primes + 1
+
+            print(integer)
+
+            integer //= 10**over
+
+            print(integer)
+
+            for prime in [2, 5]:
+                if prime in self.primes:
+                    self.primes[prime] += over * sign.value
+                else:
+                    self.primes[prime] = over * sign.value
+
+        for prime in PRIMES:
+            while integer % prime == 0:
+                if prime in self.primes:
+                    self.primes[prime] += 1 * sign.value
+                else:
+                    self.primes[prime] = 1 * sign.value
+
+                integer /= prime
+
+            if integer <= 1:
+                break
 
     def set_num(
             self,
@@ -75,17 +109,7 @@ class Num:
         else:
             self.sign: Num.Sign = Num.Sign.POSITIVE
 
-        for prime in PRIMES:
-            while integer % prime == 0:
-                if prime in self.primes:
-                    self.primes[prime] += 1
-                else:
-                    self.primes[prime] = 1
-
-                integer /= prime
-
-            if integer <= 1:
-                break
+        self._modify_prime_factorization(integer, Num.Sign.POSITIVE)
 
     def set_float(self, float_: float) -> None:
         """
@@ -120,18 +144,41 @@ class Num:
         else:
             self.sign: Num.Sign = Num.Sign.POSITIVE
 
-        raise NotImplementedError
+        # TODO: set_fraction
+        numerator, denominator = float_.as_integer_ratio()
+        self._modify_prime_factorization(numerator, Num.Sign.POSITIVE)
+        self._modify_prime_factorization(denominator, Num.Sign.NEGATIVE)
+
+    def set_fraction(self, numerator: int, denominator: int) -> None:
+        pass
+
+    def get_float(self) -> int | None | float:
+        if self.case is not Num.Case.NUMBER:
+            if self.case is Num.Case.ZERO:
+                return 0
+            if self.case == Num.Case.INFINITY:
+                return float('inf') * self.sign.value
+            if self.case is Num.Case.UNDEFINED:
+                return None
+
+        out: float = self.sign.value
+
+        for prime in self.primes:
+            if self.primes[prime] > 0:
+                out *= prime ** self.primes[prime]
+            else:
+                out /= prime ** -self.primes[prime]
+
+        return out
 
 
 if __name__ == '__main__':
     number = Num()
 
-    number.set_num()
+    number.set_float(-18/-11)
     print(number.primes)
     print(number.sign)
     print(number.case)
-
-    number.set_num({})
-    print(number.primes)
-    print(number.sign)
-    print(number.case)
+    print()
+    print(number.get_float())
+    print(-18/-11)
