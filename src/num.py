@@ -1,7 +1,7 @@
 from enum import Enum
-from math import isinf
+from math import inf
 
-PRIMES: list[int] = [2, 3, 5, 7, 11, 13]
+from primes import PRIMES
 
 
 class Num:
@@ -23,7 +23,19 @@ class Num:
         self.sign: Num.Sign = Num.Sign.POSITIVE
         self.case: Num.Case = Num.Case.UNDEFINED
 
-    def set_num(self, primes: dict[int, int] | None = None, sign: Sign = Sign.POSITIVE, case: Case = Case.NUMBER) -> None:
+    def set_num(
+            self,
+            primes: dict[int, int] | None = None,
+            sign: Sign = Sign.POSITIVE,
+            case: Case = Case.NUMBER
+    ) -> None:
+        """
+        Sets Num to Num components.
+        :param primes: Dictionary of primes quantities
+        :param sign: Sign of Num (+, -)
+        :param case: Case of Num (NUMBER, ZERO, INFINITY, UNDEFINED)
+        :return: None
+        """
         self.primes: dict[int, int] = {}
         self.case: Num.Case = case
 
@@ -43,6 +55,11 @@ class Num:
             self.sign: Num.Sign = sign
 
     def set_int(self, integer: int) -> None:
+        """
+        Sets Num to integer.
+        :param integer: Integer to set Num to
+        :return: None
+        """
         self.primes: dict[int, int] = {}
         self.case: Num.Case = Num.Case.NUMBER
 
@@ -71,11 +88,39 @@ class Num:
                 break
 
     def set_float(self, float_: float) -> None:
+        """
+        Sets Num to float.
+        :param float_: Float to set Num to
+        :return: None
+        """
+        self.primes: dict[int, int] = {}
+        self.case: Num.Case = Num.Case.NUMBER
 
-        if isinf(float_) and float_ > 0:
-            pass
+        if float_ == 0:
+            self.sign: Num.Sign = Num.Sign.POSITIVE
+            self.case: Num.Case = Num.Case.ZERO
 
-        raise NotImplementedError  # TODO: Warning: float('inf'), float('-inf')
+            return
+
+        if float_ == inf:
+            self.sign: Num.Sign = Num.Sign.POSITIVE
+            self.case: Num.Case = Num.Case.INFINITY
+
+            return
+
+        if float_ == -inf:
+            self.sign: Num.Sign = Num.Sign.NEGATIVE
+            self.case: Num.Case = Num.Case.INFINITY
+
+            return
+
+        if float_ < 0:
+            float_ *= -1
+            self.sign: Num.Sign = Num.Sign.NEGATIVE
+        else:
+            self.sign: Num.Sign = Num.Sign.POSITIVE
+
+        raise NotImplementedError
 
 
 if __name__ == '__main__':
