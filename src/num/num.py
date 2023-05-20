@@ -1,6 +1,5 @@
 from enum import Enum
 from math import inf, log10
-from typing import Tuple
 
 from src.primes.primes import PRIMES, PRIMES_TO
 
@@ -231,10 +230,84 @@ class Num:
 
         return numerator, denominator
 
+    def __mul__(self, other):
+        out: Num = Num()
+
+        if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
+            out.set_num(case=Num.Case.UNDEFINED)
+
+            return out
+
+        if (self.case is Num.Case.ZERO) or (other.case is Num.Case.ZERO):
+            out.set_num(case=Num.Case.ZERO)
+
+            return out
+
+        if (self.sign is Num.Sign.NEGATIVE) ^ (other.sign is Num.Sign.NEGATIVE):
+            out.sign = Num.Sign.NEGATIVE
+        else:
+            out.sign = Num.Sign.POSITIVE
+
+        if (self.case is Num.Case.INFINITY) or (other.case is Num.Case.INFINITY):
+            out.case = Num.Case.INFINITY
+
+            return out
+
+        out.case = Num.Case.NUMBER
+        out.primes = self.primes.copy()
+
+        for prime in other.primes:
+            if prime in out.primes:
+                out.primes[prime] += other.primes[prime]
+            else:
+                out.primes[prime] = other.primes[prime]
+
+        out._clean_values()
+
+        return out
+
+    def __truediv__(self, other):
+        out: Num = Num()
+
+        if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED) or (other.case is Num.Case.ZERO) or (
+                (self.case is Num.Case.INFINITY) and (other.case is Num.Case.INFINITY)):
+            out.set_num(case=Num.Case.UNDEFINED)
+
+            return out
+
+        if (self.case is Num.Case.ZERO) or (other.case is Num.Case.INFINITY):
+            out.set_num(case=Num.Case.ZERO)
+
+            return out
+
+        if (self.sign is Num.Sign.NEGATIVE) ^ (other.sign is Num.Sign.NEGATIVE):
+            out.sign = Num.Sign.NEGATIVE
+        else:
+            out.sign = Num.Sign.POSITIVE
+
+        if self.case is Num.Case.INFINITY:
+            out.case = Num.Case.INFINITY
+
+            return out
+
+        out.case = Num.Case.NUMBER
+        out.primes = self.primes.copy()
+
+        for prime in other.primes:
+            if prime in out.primes:
+                out.primes[prime] -= other.primes[prime]
+            else:
+                out.primes[prime] = -other.primes[prime]
+
+        out._clean_values()
+
+        return out
+
 
 if __name__ == '__main__':
-    number = Num()
+    print(f'Precision: {PRIMES_TO:,}\n')
 
+    number = Num()
     number.set_float(-18 / -11)
     print(number.primes)
     print(number.sign)
