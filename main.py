@@ -273,3 +273,5 @@ if __name__ == '__main__':
 # https://www.geeksforgeeks.org/operator-overloading-in-python/
 
 # https://t5k.org/lists/small/millions/
+# https://t5k.org/notes/faq/LongestList.html
+# http://compoasso.free.fr/primelistweb/page/prime/liste_online_en.php

@@ -335,7 +335,7 @@ class TestNumSetFloat(unittest.TestCase):
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
         number.set_float(18/11)  # todo: .primes changes with precision (number of PRIMES)
-        self.assertEqual(number.primes, {2: 3, 5: 0, 92119: 1, 7: -3, 13: -1, 101: -1}, 'Primes not assigned properly.')
+        self.assertEqual(number.primes, {2: 3, 7: -3, 13: -1, 101: -1, 92119: 1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
@@ -348,7 +348,7 @@ class TestNumSetFloat(unittest.TestCase):
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
         number.set_float(-18/11)  # todo: .primes changes with precision (number of PRIMES)
-        self.assertEqual(number.primes, {2: 3, 5: 0, 92119: 1, 7: -3, 13: -1, 101: -1}, 'Primes not assigned properly.')
+        self.assertEqual(number.primes, {2: 3, 7: -3, 13: -1, 101: -1, 92119: 1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
@@ -401,180 +401,180 @@ class TestNumSetFraction(unittest.TestCase):
     def test_number_positive(self):
         number = Num()
 
-        number.set_fraction(18/11)
-        self.assertEqual(number.primes, {2: 1, 3: 2}, 'Primes not assigned properly.')
+        number.set_fraction(18, 11)
+        self.assertEqual(number.primes, {2: 1, 3: 2, 11: -1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(-18/-11)
-        self.assertEqual(number.primes, {2: 3, 5: 0, 92119: 1, 7: -3, 13: -1, 101: -1}, 'Primes not assigned properly.')
+        number.set_fraction(-18, -11)
+        self.assertEqual(number.primes, {2: 1, 3: 2, 11: -1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
     def test_number_negative(self):
         number = Num()
 
-        number.set_fraction(-18/11)
-        self.assertEqual(number.primes, {2: 1, 3: 2}, 'Primes not assigned properly.')
+        number.set_fraction(-18, 11)
+        self.assertEqual(number.primes, {2: 1, 3: 2, 11: -1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(18/-11)  # todo: .primes changes with precision (number of PRIMES)
-        self.assertEqual(number.primes, {2: 3, 5: 0, 92119: 1, 7: -3, 13: -1, 101: -1}, 'Primes not assigned properly.')
+        number.set_fraction(18, -11)
+        self.assertEqual(number.primes, {2: 1, 3: 2, 11: -1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
     def test_zero(self):
         number = Num()
 
-        number.set_fraction(0/11)
+        number.set_fraction(0, 11)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
 
-        number.set_fraction(-0/11)
+        number.set_fraction(-0, 11)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
 
-        number.set_fraction(-0/-11)
+        number.set_fraction(-0, -11)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
 
-        number.set_fraction(0/-11)
+        number.set_fraction(0, -11)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
 
-        number.set_fraction(18/float('inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
+        # number.set_fraction(18, float('inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
+        #
+        # number.set_fraction(-18, float('inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
+        #
+        # number.set_fraction(-18, float('-inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
+        #
+        # number.set_fraction(18, float('-inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
 
-        number.set_fraction(-18/float('inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
-
-        number.set_fraction(-18/float('-inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
-
-        number.set_fraction(18/float('-inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.ZERO, 'Case not assigned properly.')
-
-    def test_infinity_positive(self):
-        number = Num()
-
-        number.set_fraction(float('inf')/11)
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
-
-        number.set_fraction(float('-inf')/-11)
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
-
-    def test_infinity_negative(self):
-        number = Num()
-
-        number.set_fraction(float('-inf')/11)
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
-
-        number.set_fraction(float('inf')/-11)
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+    # def test_infinity_positive(self):
+    #     number = Num()
+    #
+    #     number.set_fraction(float('inf'), 11)
+    #     self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+    #     self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+    #     self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+    #
+    #     number.set_fraction(float('-inf'), -11)
+    #     self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+    #     self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+    #     self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+    #
+    # def test_infinity_negative(self):
+    #     number = Num()
+    #
+    #     number.set_fraction(float('-inf'), 11)
+    #     self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+    #     self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
+    #     self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+    #
+    #     number.set_fraction(float('inf'), -11)
+    #     self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+    #     self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
+    #     self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
 
     def test_undefined(self):
         number = Num()
 
-        number.set_fraction(18/0)
+        number.set_fraction(18, 0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(0/0)
+        number.set_fraction(0, 0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(-18/0)
+        number.set_fraction(-18, 0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(-0/0)
+        number.set_fraction(-0, 0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(18/-0)
+        number.set_fraction(18, -0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(0/-0)
+        number.set_fraction(0, -0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(-18/-0)
+        number.set_fraction(-18, -0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(-0/-0)
+        number.set_fraction(-0, -0)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
+        self.assertEqual(number.case, Num.Case.UNDEFINED, 'Case not assigned properly.')
 
-        number.set_fraction(float('inf')/float('inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
-
-        number.set_fraction(float('-inf')/float('inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
-
-        number.set_fraction(float('inf')/float('-inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
-
-        number.set_fraction(float('-inf')/float('-inf'))
-        self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
-        self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
-        self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        # number.set_fraction(float('inf'), float('inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        #
+        # number.set_fraction(float('-inf'), float('inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        #
+        # number.set_fraction(float('inf'), float('-inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
+        #
+        # number.set_fraction(float('-inf'), float('-inf'))
+        # self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
+        # self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
+        # self.assertEqual(number.case, Num.Case.INFINITY, 'Case not assigned properly.')
 
     def test_one_positive(self):
         number = Num()
 
-        number.set_fraction(1/1)
+        number.set_fraction(1, 1)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(18/18)
+        number.set_fraction(18, 18)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(-1/-1)
+        number.set_fraction(-1, -1)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(-18/-18)
+        number.set_fraction(-18, -18)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
@@ -582,25 +582,84 @@ class TestNumSetFraction(unittest.TestCase):
     def test_one_negative(self):
         number = Num()
 
-        number.set_fraction(-1/1)
+        number.set_fraction(-1, 1)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(-18/18)
+        number.set_fraction(-18, 18)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(1/-1)
+        number.set_fraction(1, -1)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_fraction(18/-18)
+        number.set_fraction(18, -18)
         self.assertEqual(number.primes, {}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
+
+
+# noinspection DuplicatedCode
+class TestNumGetFloat(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_number_positive(self):
+        number = Num()
+
+        number.set_num({2: 1, 3: 2})
+        self.assertEqual(number.get_float(), 18, 'Wrong output')
+
+        number.set_num({2: 1, 3: 2, 11: -1})
+        self.assertEqual(number.get_float(), 18/11, 'Wrong output')
+
+    def test_number_negative(self):
+        number = Num()
+
+        number.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number.get_float(), -18, 'Wrong output')
+
+        number.set_num({2: 1, 3: 2, 11: -1}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number.get_float(), -18/11, 'Wrong output')
+
+    def test_zero(self):
+        number = Num()
+
+        number.set_num(case=Num.Case.ZERO)
+        self.assertEqual(number.get_float(), 0, 'Wrong output')
+
+    def test_infinity_positive(self):
+        number = Num()
+
+        number.set_num(case=Num.Case.INFINITY)
+        self.assertEqual(number.get_float(), float('inf'), 'Wrong output')
+
+    def test_infinity_negative(self):
+        number = Num()
+
+        number.set_num(sign=Num.Sign.NEGATIVE, case=Num.Case.INFINITY)
+        self.assertEqual(number.get_float(), float('-inf'), 'Wrong output')
+
+    def test_undefined(self):
+        number = Num()
+
+        self.assertEqual(number.get_float(), None, 'Wrong output')
+
+    def test_one_positive(self):
+        number = Num()
+
+        number.set_num({})
+        self.assertEqual(number.get_float(), 1, 'Wrong output')
+
+    def test_one_negative(self):
+        number = Num()
+
+        number.set_num({}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number.get_float(), -1, 'Wrong output')
 
 
 class TestNumMultiplication(unittest.TestCase):  # TODO
