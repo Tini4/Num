@@ -23,6 +23,15 @@ class Num:
         self.sign: Num.Sign = Num.Sign.POSITIVE
         self.case: Num.Case = Num.Case.UNDEFINED
 
+    def __abs__(self):
+        pass
+
+    def __repr__(self):
+        return f"Num(primes={self.primes!r}, sign={self.sign!r}, case={self.case!r})"
+
+    def __str__(self):
+        return f'{self.primes}, {self.sign.name}, {self.case.name}'
+
     def _modify_prime_factorization(self, integer: int, sign: Sign):
         if integer > PRIMES_TO:
             size_integer: int = int(log10(integer)) + 1
@@ -62,12 +71,8 @@ class Num:
 
         self.primes: dict[int, int] = {k: v for k, v in sorted(self.primes.items()) if v}
 
-    def set_num(
-            self,
-            primes: dict[int, int] | None = None,
-            sign: Sign = Sign.POSITIVE,
-            case: Case = Case.NUMBER
-    ) -> None:
+    def set_num(self, primes: dict[int, int] | None = None, sign: Sign = Sign.POSITIVE,
+                case: Case = Case.NUMBER) -> None:
         """
         Sets Num to Num components.
         :param primes: Dictionary of primes quantities
@@ -303,6 +308,57 @@ class Num:
 
         return out
 
+    def __add__(self, other):
+        pass
+
+    def __sub__(self, other):
+        pass
+
+    def __pow__(self, power, modulo=None):
+        pass
+
+    def __lt__(self, other):
+        pass
+
+    def __gt__(self, other):
+        pass
+
+    def __le__(self, other):
+        pass
+
+    def __ge__(self, other):
+        pass
+
+    def __eq__(self, other):
+        pass
+
+    def __ne__(self, other):
+        pass
+
+    def __imul__(self, other):
+        pass
+
+    def __idiv__(self, other):
+        pass
+
+    def __iadd__(self, other):
+        pass
+
+    def __isub__(self, other):
+        pass
+
+    def __ipow__(self, other):
+        pass
+
+    def __neg__(self):
+        pass
+
+    def __invert__(self):
+        pass
+
+    def __float__(self):
+        return self.get_float()
+
 
 if __name__ == '__main__':
     print(f'Precision: {PRIMES_TO:,}\n')
@@ -313,8 +369,11 @@ if __name__ == '__main__':
     print(number.sign)
     print(number.case)
     print()
-    print(number.get_float())
+    print(float(number))
     print(-18 / -11)
+    print()
+    print(number)
+    print(repr(number))
 
 # http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
 # https://www.geeksforgeeks.org/operator-overloading-in-python/
