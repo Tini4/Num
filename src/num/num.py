@@ -1,5 +1,6 @@
 from enum import Enum
 from math import inf, log10
+from typing import Tuple
 
 from src.primes.primes import PRIMES, PRIMES_TO
 
@@ -187,7 +188,7 @@ class Num:
 
         self._clean_values()
 
-    def get_float(self) -> int | None | float:
+    def get_float(self) -> int | float | None:
         if self.case is not Num.Case.NUMBER:
             if self.case is Num.Case.ZERO:
                 return 0
@@ -207,6 +208,28 @@ class Num:
                 out /= prime ** -self.primes[prime]
 
         return out
+
+    def get_fraction(self) -> tuple[int, int] | tuple[float, int] | None:
+        if self.case is not Num.Case.NUMBER:
+            if self.case is Num.Case.ZERO:
+                return 0, 1
+
+            if self.case is Num.Case.INFINITY:
+                return float('inf') * self.sign.value, 1
+
+            if self.case is Num.Case.UNDEFINED:
+                return None
+
+        numerator: int = self.sign.value
+        denominator: int = 1
+
+        for prime in self.primes:
+            if self.primes[prime] > 0:
+                numerator *= prime ** self.primes[prime]
+            else:
+                denominator *= prime ** -self.primes[prime]
+
+        return numerator, denominator
 
 
 if __name__ == '__main__':

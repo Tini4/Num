@@ -662,6 +662,65 @@ class TestNumGetFloat(unittest.TestCase):
         self.assertEqual(number.get_float(), -1, 'Wrong output')
 
 
+# noinspection DuplicatedCode
+class TestNumGetFraction(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_number_positive(self):
+        number = Num()
+
+        number.set_num({2: 1, 3: 2})
+        self.assertEqual(number.get_fraction(), (18, 1), 'Wrong output')
+
+        number.set_num({2: 1, 3: 2, 11: -1})
+        self.assertEqual(number.get_fraction(), (18, 11), 'Wrong output')
+
+    def test_number_negative(self):
+        number = Num()
+
+        number.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number.get_fraction(), (-18, 1), 'Wrong output')
+
+        number.set_num({2: 1, 3: 2, 11: -1}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number.get_fraction(), (-18, 11), 'Wrong output')
+
+    def test_zero(self):
+        number = Num()
+
+        number.set_num(case=Num.Case.ZERO)
+        self.assertEqual(number.get_fraction(), (0, 1), 'Wrong output')
+
+    def test_infinity_positive(self):
+        number = Num()
+
+        number.set_num(case=Num.Case.INFINITY)
+        self.assertEqual(number.get_fraction(), (float('inf'), 1), 'Wrong output')
+
+    def test_infinity_negative(self):
+        number = Num()
+
+        number.set_num(sign=Num.Sign.NEGATIVE, case=Num.Case.INFINITY)
+        self.assertEqual(number.get_fraction(), (float('-inf'), 1), 'Wrong output')
+
+    def test_undefined(self):
+        number = Num()
+
+        self.assertEqual(number.get_fraction(), None, 'Wrong output')
+
+    def test_one_positive(self):
+        number = Num()
+
+        number.set_num({})
+        self.assertEqual(number.get_fraction(), (1, 1), 'Wrong output')
+
+    def test_one_negative(self):
+        number = Num()
+
+        number.set_num({}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number.get_fraction(), (-1, 1), 'Wrong output')
+
+
 class TestNumMultiplication(unittest.TestCase):  # TODO
     def setUp(self):
         pass

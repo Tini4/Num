@@ -205,7 +205,7 @@ class Num:
             if self.primes[prime] > 0:
                 numerator *= prime ** self.primes[prime]
             else:
-                denominator /= prime ** self.primes[prime]
+                denominator *= prime ** -self.primes[prime]
 
         return numerator, denominator
 
