@@ -24,7 +24,11 @@ class Num:
         self.case: Num.Case = Num.Case.UNDEFINED
 
     def __abs__(self):
-        pass
+        out: Num = Num()
+
+        out.set_num(self.primes)
+
+        return out
 
     def __repr__(self):
         return f"Num(primes={self.primes!r}, sign={self.sign!r}, case={self.case!r})"
@@ -536,10 +540,12 @@ if __name__ == '__main__':
     number1 = Num()
     number2 = Num()
 
-    number1.set_num({2: 1, 3: 2})  # 18
+    number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)  # 18
     number2.set_num({11: -1})  # 1/11
 
     print((number2+number1).get_fraction())  # 199/11
+    print()
+    print(abs(number1))
 
 # http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
 # https://www.geeksforgeeks.org/operator-overloading-in-python/
