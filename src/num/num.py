@@ -391,7 +391,89 @@ class Num:
         return out
 
     def __sub__(self, other):
-        pass
+        out: Num = Num()
+
+        if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
+            out.set_num(case=Num.Case.UNDEFINED)
+
+            return out
+
+        if self.case is Num.Case.ZERO:
+            if other.sign is Num.Sign.POSITIVE:
+                out.set_num(other.primes, sign=Num.Sign.NEGATIVE, case=other.case)
+            else:
+                out.set_num(other.primes, sign=Num.Sign.POSITIVE, case=other.case)
+
+            return out
+
+        if other.case is Num.Case.ZERO:
+            out.set_num(self.primes, sign=self.sign, case=self.case)
+
+            return out
+
+        if (self.case is Num.Case.INFINITY) ^ (other.case is Num.Case.INFINITY):
+            out.case = Num.Case.INFINITY
+
+            if ((self.case is Num.Case.INFINITY) and (self.sign is Num.Sign.NEGATIVE)) or (
+                    (other.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE)):
+                out.sign = Num.Sign.NEGATIVE
+
+            return out
+
+        if (self.case is Num.Case.INFINITY) and (other.case is Num.Case.INFINITY):
+            if self.sign is other.sign:
+                out.set_num(case=Num.Case.UNDEFINED)
+
+                return out
+
+            out.set_num(self.primes, sign=self.sign, case=self.case)
+
+            return out
+
+        out.case = Num.Case.NUMBER
+
+        a_numerator: dict[int, int] = self.primes.copy()
+        b_numerator: dict[int, int] = other.primes.copy()
+        denominator: dict[int, int] = {k: -v for k, v in self.primes.items() if v < 0}
+
+        for prime in other.primes:
+            if other.primes[prime] < 0:
+                if prime in denominator:
+                    denominator[prime] = max(denominator[prime], -other.primes[prime])
+                else:
+                    denominator[prime] = -other.primes[prime]
+
+        for prime in denominator:
+            if prime in a_numerator:
+                a_numerator[prime] += denominator[prime]
+            else:
+                a_numerator[prime] = denominator[prime]
+
+            if prime in b_numerator:
+                b_numerator[prime] += denominator[prime]
+            else:
+                b_numerator[prime] = denominator[prime]
+
+        a: int = 1
+        b: int = 1
+
+        for prime in a_numerator:
+            a *= prime ** a_numerator[prime]
+
+        for prime in b_numerator:
+            b *= prime ** b_numerator[prime]
+
+        out.set_int(a * self.sign.value - b * other.sign.value)
+
+        for prime in denominator:
+            if prime in out.primes:
+                out.primes[prime] -= denominator[prime]
+            else:
+                out.primes[prime] = -denominator[prime]
+
+        out._clean_values()
+
+        return out
 
     def __pow__(self, power, modulo=None):
         pass

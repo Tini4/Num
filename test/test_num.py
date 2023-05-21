@@ -1388,6 +1388,20 @@ class TestNumAdd(unittest.TestCase):
         self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not added properly.')
         self.assertEqual(number3.case, Num.Case.ZERO, 'Case not added properly.')
 
+        number1.set_num({5: 1})
+        number2.set_num({5: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 + number2
+        self.assertEqual(number3.primes, {}, 'Primes not added properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not added properly.')
+        self.assertEqual(number3.case, Num.Case.ZERO, 'Case not added properly.')
+
+        number1.set_num({5: 1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({5: 1})
+        number3 = number1 + number2
+        self.assertEqual(number3.primes, {}, 'Primes not added properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not added properly.')
+        self.assertEqual(number3.case, Num.Case.ZERO, 'Case not added properly.')
+
     def test_infinity_positive(self):
         number1 = Num()
         number2 = Num()
@@ -1507,14 +1521,14 @@ class TestNumAdd(unittest.TestCase):
 
         number1.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
         number2.set_num(case=Num.Case.INFINITY)
-        number3 = number1 / number2
+        number3 = number1 + number2
         self.assertEqual(number3.primes, {}, 'Primes not added properly.')
         self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not added properly.')
         self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not added properly.')
 
         number1.set_num(case=Num.Case.INFINITY)
         number2.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
-        number3 = number1 / number2
+        number3 = number1 + number2
         self.assertEqual(number3.primes, {}, 'Primes not added properly.')
         self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not added properly.')
         self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not added properly.')
@@ -1624,6 +1638,366 @@ class TestNumAdd(unittest.TestCase):
         self.assertEqual(number3.primes, {}, 'Primes not added properly.')
         self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not added properly.')
         self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not added properly.')
+
+
+# noinspection DuplicatedCode
+class TestNumSub(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_number_positive(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num({11: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {7: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {29: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num({11: -1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {11: -1, 197: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num({11: -1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {11: -1, 199: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.ZERO)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {2: 1, 3: 2}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {11: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+    def test_number_negative(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {7: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {29: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: -1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {11: -1, 197: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: -1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {11: -1, 199: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.ZERO)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {2: 1, 3: 2}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num({11: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {11: 1}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+    def test_zero(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num(case=Num.Case.ZERO)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.ZERO, 'Case not subtracted properly.')
+
+        number1.set_num({5: 1})
+        number2.set_num({5: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.ZERO, 'Case not subtracted properly.')
+
+        number1.set_num({5: 1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({5: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.ZERO, 'Case not subtracted properly.')
+
+    def test_infinity_positive(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.INFINITY)
+        number2.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.INFINITY)
+        number2.set_num({11: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.INFINITY)
+        number2.set_num(case=Num.Case.ZERO)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+    def test_infinity_negative(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.INFINITY)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.INFINITY)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.ZERO)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num(case=Num.Case.INFINITY)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.INFINITY, 'Case not subtracted properly.')
+
+    def test_undefined(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.UNDEFINED)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.UNDEFINED)
+        number2.set_num({11: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.UNDEFINED)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.UNDEFINED)
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.UNDEFINED)
+        number2.set_num(case=Num.Case.UNDEFINED)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.INFINITY)
+        number2.set_num(case=Num.Case.INFINITY)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not subtracted properly.')
+
+        number1.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.UNDEFINED, 'Case not subtracted properly.')
+
+    def test_one_positive(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num({}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({})
+        number2.set_num(case=Num.Case.ZERO)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({2: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1})
+        number2.set_num({})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: -1})
+        number2.set_num({2: -1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: -1, 3: 1})
+        number2.set_num({2: -1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: -1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({2: -1, 3: 1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.POSITIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+    def test_one_negative(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num({})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({}, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.ZERO)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({})
+        number2.set_num({2: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: 1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: -1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({2: -1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: -1, 3: 1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({2: -1}, sign=Num.Sign.NEGATIVE)
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
+
+        number1.set_num({2: -1})
+        number2.set_num({2: -1, 3: 1})
+        number3 = number1 - number2
+        self.assertEqual(number3.primes, {}, 'Primes not subtracted properly.')
+        self.assertEqual(number3.sign, Num.Sign.NEGATIVE, 'Sign not subtracted properly.')
+        self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not subtracted properly.')
 
 
 if __name__ == '__main__':
