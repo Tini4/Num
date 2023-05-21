@@ -30,7 +30,7 @@ class Num:
         return f"Num(primes={self.primes!r}, sign={self.sign!r}, case={self.case!r})"
 
     def __str__(self):
-        return f'{self.primes}, {self.sign.name}, {self.case.name}'
+        return f'{self.case.name}, {self.sign.name}, {self.primes}'
 
     def _modify_prime_factorization(self, integer: int, sign: Sign):
         if integer > PRIMES_TO:
@@ -309,7 +309,86 @@ class Num:
         return out
 
     def __add__(self, other):
-        pass
+        out: Num = Num()
+
+        if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
+            out.set_num(case=Num.Case.UNDEFINED)
+
+            return out
+
+        if self.case is Num.Case.ZERO:
+            out.set_num(other.primes, sign=other.sign, case=other.case)
+
+            return out
+
+        if other.case is Num.Case.ZERO:
+            out.set_num(self.primes, sign=self.sign, case=self.case)
+
+            return out
+
+        if (self.case is Num.Case.INFINITY) ^ (other.case is Num.Case.INFINITY):
+            out.case = Num.Case.INFINITY
+
+            if ((self.case is Num.Case.INFINITY) and (self.sign is Num.Sign.NEGATIVE)) or (
+                    (other.case is Num.Case.INFINITY) and (other.sign is Num.Sign.NEGATIVE)):
+                out.sign = Num.Sign.NEGATIVE
+
+            return out
+
+        if (self.case is Num.Case.INFINITY) and (other.case is Num.Case.INFINITY):
+            if self.sign is not other.sign:
+                out.set_num(case=Num.Case.UNDEFINED)
+
+                return out
+
+            out.set_num(self.primes, sign=self.sign, case=self.case)
+
+            return out
+
+        out.case = Num.Case.NUMBER
+
+        a_numerator: dict[int, int] = self.primes.copy()
+        b_numerator: dict[int, int] = other.primes.copy()
+        denominator: dict[int, int] = {k: -v for k, v in self.primes.items() if v < 0}
+
+        for prime in other.primes:
+            if other.primes[prime] < 0:
+                if prime in denominator:
+                    denominator[prime] = max(denominator[prime], -other.primes[prime])
+                else:
+                    denominator[prime] = -other.primes[prime]
+
+        for prime in denominator:
+            if prime in a_numerator:
+                a_numerator[prime] += denominator[prime]
+            else:
+                a_numerator[prime] = denominator[prime]
+
+            if prime in b_numerator:
+                b_numerator[prime] += denominator[prime]
+            else:
+                b_numerator[prime] = denominator[prime]
+
+        a: int = 1
+        b: int = 1
+
+        for prime in a_numerator:
+            a *= prime ** a_numerator[prime]
+
+        for prime in b_numerator:
+            b *= prime ** b_numerator[prime]
+
+        out.set_int(a*self.sign.value + b*other.sign.value)
+
+        for prime in denominator:
+            if prime in out.primes:
+                out.primes[prime] -= denominator[prime]
+            else:
+                out.primes[prime] = -denominator[prime]
+
+        out._clean_values()
+
+        return out
 
     def __sub__(self, other):
         pass
@@ -356,24 +435,29 @@ class Num:
     def __invert__(self):
         pass
 
-    def __float__(self):
-        return self.get_float()
+    # def __float__(self):
+    #     try:
+    #         return float(self.get_float())
+    #     except:
+    #         return None
+    #
+    # def __int__(self):
+    #     try:
+    #         return int(self.get_float())
+    #     except:
+    #         return None
 
 
 if __name__ == '__main__':
     print(f'Precision: {PRIMES_TO:,}\n')
 
-    number = Num()
-    number.set_float(-18 / -11)
-    print(number.primes)
-    print(number.sign)
-    print(number.case)
-    print()
-    print(float(number))
-    print(-18 / -11)
-    print()
-    print(number)
-    print(repr(number))
+    number1 = Num()
+    number2 = Num()
+
+    number1.set_num({2: 1, 3: 2})  # 18
+    number2.set_num({11: -1})  # 1/11
+
+    print((number2+number1).get_fraction())  # 199/11
 
 # http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
 # https://www.geeksforgeeks.org/operator-overloading-in-python/
