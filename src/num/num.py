@@ -23,13 +23,6 @@ class Num:
         self.sign: Num.Sign = Num.Sign.POSITIVE
         self.case: Num.Case = Num.Case.UNDEFINED
 
-    def __abs__(self):
-        out: Num = Num()
-
-        out.set_num(self.primes)
-
-        return out
-
     def __repr__(self):
         return f"Num(primes={self.primes!r}, sign={self.sign!r}, case={self.case!r})"
 
@@ -515,11 +508,29 @@ class Num:
     def __ipow__(self, other):
         pass
 
+    def __abs__(self):
+        out: Num = Num()
+
+        out.set_num(self.primes, sign=Num.Sign.POSITIVE, case=self.case)
+
+        out._clean_values()
+
+        return out
+
     def __neg__(self):
-        pass
+        out: Num = Num()
+
+        if self.sign is Num.Sign.POSITIVE:
+            out.set_num(self.primes, sign=Num.Sign.NEGATIVE, case=self.case)
+        else:
+            out.set_num(self.primes, sign=Num.Sign.POSITIVE, case=self.case)
+
+        out._clean_values()
+
+        return out
 
     def __invert__(self):
-        pass
+        pass  # todo: ?
 
     # def __float__(self):
     #     try:
