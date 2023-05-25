@@ -334,8 +334,8 @@ class TestNumSetFloat(unittest.TestCase):
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_float(18 / 11)  # todo: .primes changes with precision (number of PRIMES)
-        self.assertEqual(number.primes, {2: 3, 7: -3, 13: -1, 101: -1, 92119: 1}, 'Primes not assigned properly.')
+        number.set_float(18 / 11)
+        self.assertEqual(number.primes, {2: -52, 19: 1, 26041: 1, 14894582557.0: 1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.POSITIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
@@ -347,8 +347,8 @@ class TestNumSetFloat(unittest.TestCase):
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 
-        number.set_float(-18 / 11)  # todo: .primes changes with precision (number of PRIMES)
-        self.assertEqual(number.primes, {2: 3, 7: -3, 13: -1, 101: -1, 92119: 1}, 'Primes not assigned properly.')
+        number.set_float(-18 / 11)
+        self.assertEqual(number.primes, {2: -52, 19: 1, 26041: 1, 14894582557.0: 1}, 'Primes not assigned properly.')
         self.assertEqual(number.sign, Num.Sign.NEGATIVE, 'Sign not assigned properly.')
         self.assertEqual(number.case, Num.Case.NUMBER, 'Case not assigned properly.')
 

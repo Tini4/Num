@@ -1,7 +1,7 @@
 from enum import Enum
-from math import inf, log10
+from math import inf, pi, e, sqrt  # , log10
 
-from src.primes.primes import PRIMES, PRIMES_TO
+# from src.primes.primes import PRIMES, PRIMES_TO
 
 
 class Num:
@@ -20,6 +20,7 @@ class Num:
         Initializes Num to UNDEFINED.
         """
         self.primes: dict[int, int] = {}
+        self.special: dict[str, int] = {'pi': 0, 'e': 0, 'root': 0}
         self.sign: Num.Sign = Num.Sign.POSITIVE
         self.case: Num.Case = Num.Case.UNDEFINED
 
@@ -30,31 +31,48 @@ class Num:
         return f'{self.case.name}, {self.sign.name}, {self.primes}'
 
     def _modify_prime_factorization(self, integer: int, sign: Sign):
-        if integer > PRIMES_TO:
-            size_integer: int = int(log10(integer)) + 1
-            size_primes: int = int(log10(PRIMES_TO)) + 1
-
-            over: int = size_integer - size_primes + 1
-
-            integer //= 10 ** over
-
-            for prime in [2, 5]:
-                if prime in self.primes:
-                    self.primes[prime] += over * sign.value
+        # if integer > PRIMES_TO:
+        #     size_integer: int = int(log10(integer)) + 1
+        #     size_primes: int = int(log10(PRIMES_TO)) + 1
+        #
+        #     over: int = size_integer - size_primes + 1
+        #
+        #     integer //= 10 ** over
+        #
+        #     for prime in [2, 5]:
+        #         if prime in self.primes:
+        #             self.primes[prime] += over * sign.value
+        #         else:
+        #             self.primes[prime] = over * sign.value
+        #
+        # for prime in PRIMES:
+        #     while integer % prime == 0:
+        #         if prime in self.primes:
+        #             self.primes[prime] += 1 * sign.value
+        #         else:
+        #             self.primes[prime] = 1 * sign.value
+        #
+        #         integer //= prime
+        #
+        #     if integer <= 1:
+        #         break
+        for i in range(2, int(sqrt(integer))+1):
+            while integer % i == 0:
+                if i in self.primes:
+                    self.primes[i] += 1 * sign.value
                 else:
-                    self.primes[prime] = over * sign.value
+                    self.primes[i] = 1 * sign.value
 
-        for prime in PRIMES:
-            while integer % prime == 0:
-                if prime in self.primes:
-                    self.primes[prime] += 1 * sign.value
-                else:
-                    self.primes[prime] = 1 * sign.value
-
-                integer /= prime
+                integer //= i
 
             if integer <= 1:
                 break
+
+        if integer > 1:
+            if integer in self.primes:
+                self.primes[integer] += 1 * sign.value
+            else:
+                self.primes[integer] = 1 * sign.value
 
     def _clean_values(self):
         if self.case is not Num.Case.NUMBER:
@@ -233,6 +251,9 @@ class Num:
         return numerator, denominator
 
     def __mul__(self, other):
+        if self.__class__ != other.__class__:
+            raise TypeError
+
         out: Num = Num()
 
         if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
@@ -269,6 +290,9 @@ class Num:
         return out
 
     def __truediv__(self, other):
+        if self.__class__ != other.__class__:
+            raise TypeError
+
         out: Num = Num()
 
         if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED) or (other.case is Num.Case.ZERO) or (
@@ -306,6 +330,9 @@ class Num:
         return out
 
     def __add__(self, other):
+        if self.__class__ != other.__class__:
+            raise TypeError
+
         out: Num = Num()
 
         if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
@@ -388,6 +415,9 @@ class Num:
         return out
 
     def __sub__(self, other):
+        if self.__class__ != other.__class__:
+            raise TypeError
+
         out: Num = Num()
 
         if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
@@ -472,41 +502,53 @@ class Num:
 
         return out
 
-    def __pow__(self, power, modulo=None):
-        pass
+    def __pow__(self, other):  # , power, modulo=None):
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __lt__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __gt__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __le__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __ge__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __eq__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __ne__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __imul__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __idiv__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __iadd__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __isub__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __ipow__(self, other):
-        pass
+        if self.__class__ != other.__class__:
+            raise TypeError
 
     def __abs__(self):
         out: Num = Num()
@@ -546,17 +588,31 @@ class Num:
 
 
 if __name__ == '__main__':
-    print(f'Precision: {PRIMES_TO:,}\n')
+    try:
+        print(f'Fast precision: {PRIMES_TO:,}\n')
+    except NameError:
+        print('Precision: infinite\n')
 
     number1 = Num()
     number2 = Num()
 
-    number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)  # 18
+    """number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)  # 18
     number2.set_num({11: -1})  # 1/11
 
     print((number2+number1).get_fraction())  # 199/11
     print()
-    print(abs(number1))
+    print(abs(number1))"""
+
+    """number1.set_float(18/11)
+    print(18/11)
+    print(number1.get_float())
+    print(number1)
+    print(number1.get_fraction())
+    print()"""
+
+    print(number2.__class__ == type(number2))
+    print(type(number2))
+    print(number2.__class__)
 
 # http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
 # https://www.geeksforgeeks.org/operator-overloading-in-python/
