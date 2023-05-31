@@ -570,6 +570,47 @@ class Num:
         if self.__class__ != other.__class__:
             raise TypeError
 
+        if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
+            return False
+
+        if (self.case is Num.Case.INFINITY) and (other.case is Num.Case.INFINITY):
+            return False
+
+        if self.case is Num.Case.INFINITY:
+            if self.sign is Num.Sign.POSITIVE:
+                return False
+
+            return True
+
+        if other.case is Num.Case.INFINITY:
+            if other.sign is Num.Sign.POSITIVE:
+                return True
+
+            return False
+
+        if (self.case is Num.Case.ZERO) and (other.case is Num.Case.ZERO):
+            return False
+
+        if self.case is Num.Case.ZERO:
+            if other.sign is Num.Sign.POSITIVE:
+                return True
+
+            return False
+
+        if other.case is Num.Case.ZERO:
+            if self.sign is Num.Sign.POSITIVE:
+                return False
+
+            return True
+
+        if (self.sign is Num.Sign.NEGATIVE) ^ (other.sign is Num.Sign.NEGATIVE):
+            if self.sign is Num.Sign.NEGATIVE:
+                return True
+
+            return False
+
+        return self.get_float() < other.get_float()
+
     def __gt__(self, other):
         if self.__class__ != other.__class__:
             raise TypeError
@@ -676,9 +717,25 @@ if __name__ == '__main__':
     print(number1.get_float())
     print(-18 / 11)"""
 
-    number1.set_int(3)
+    """number1.set_int(3)
     number2.set_int(2)
-    print((number1 ** number2).get_float())
+    print((number1 ** number2).get_float())"""
+
+    number1.set_int(5)
+    number2.set_int(2)
+
+    print(number1<number2)
+    print(number1>number2)
+    print()
+    print(number1<=number2)
+    print(number1>=number2)
+    print(number2<=number2)
+    print(number1>=number1)
+    print()
+    print(number1==number2)
+    print(number1==number1)
+    print(number1!=number2)
+    print(number2!=number2)
 
 # http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
 # https://www.geeksforgeeks.org/operator-overloading-in-python/

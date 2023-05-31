@@ -2240,5 +2240,127 @@ class TestNumPow(unittest.TestCase):
         self.assertEqual(number3.case, Num.Case.NUMBER, 'Case not powered properly.')
 
 
+# noinspection DuplicatedCode
+class TestNumLt(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_number(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num({11: 1})
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({11: 1})
+        number2.set_num({2: 1, 3: 2})
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({11: 1})
+        number2.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: 1})
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        number2.set_num({2: 1, 3: 2})
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+    def test_zero(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num({11: 1})
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.ZERO)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.ZERO)
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num(case=Num.Case.ZERO)
+        number2.set_num(case=Num.Case.ZERO)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+    def test_infinity(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.INFINITY)
+        number2.set_num(case=Num.Case.INFINITY)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.INFINITY)
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num(case=Num.Case.INFINITY)
+        number2.set_num({11: 1})
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.INFINITY)
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num(case=Num.Case.INFINITY)
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: 1})
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)
+        number2.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num(case=Num.Case.INFINITY, sign=Num.Sign.NEGATIVE)
+        number2.set_num({11: 1}, sign=Num.Sign.NEGATIVE)
+        self.assertEqual(number1 < number2, True, 'Less than not working.')
+
+    def test_undefined(self):
+        number1 = Num()
+        number2 = Num()
+
+        number1.set_num(case=Num.Case.UNDEFINED)
+        number2.set_num(case=Num.Case.UNDEFINED)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num(case=Num.Case.UNDEFINED)
+        number2.set_num({11: 1})
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+        number1.set_num({2: 1, 3: 2})
+        number2.set_num(case=Num.Case.UNDEFINED)
+        self.assertEqual(number1 < number2, False, 'Less than not working.')
+
+
 if __name__ == '__main__':
     unittest.main()
