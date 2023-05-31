@@ -207,16 +207,16 @@ class Num:
 
         self._clean_values()
 
-    def get_float(self) -> int | float | None:
+    def get_float(self) -> float:
         if self.case is not Num.Case.NUMBER:
             if self.case is Num.Case.ZERO:
-                return 0
+                return 0.0
 
             if self.case is Num.Case.INFINITY:
                 return float('inf') * self.sign.value
 
             if self.case is Num.Case.UNDEFINED:
-                return None
+                return float('nan')
 
         out: float = self.sign.value
 
@@ -675,17 +675,8 @@ class Num:
     def __invert__(self):
         pass  # todo: ?
 
-    # def __float__(self):
-    #     try:
-    #         return float(self.get_float())
-    #     except:
-    #         return None
-    #
-    # def __int__(self):
-    #     try:
-    #         return int(self.get_float())
-    #     except:
-    #         return None
+    def __float__(self):
+        return self.get_float()
 
 
 if __name__ == '__main__':
@@ -696,30 +687,6 @@ if __name__ == '__main__':
 
     number1 = Num()
     number2 = Num()
-
-    """number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)  # 18
-    number2.set_num({11: -1})  # 1/11
-
-    print((number2+number1).get_fraction())  # 199/11
-    print()
-    print(abs(number1))"""
-
-    """number1.set_float(18/11)
-    print(18/11)
-    print(number1.get_float())
-    print(number1)
-    print(number1.get_fraction())
-    print()"""
-
-    """number1.set_float(-18 / 11)
-
-    print(number1)
-    print(number1.get_float())
-    print(-18 / 11)"""
-
-    """number1.set_int(3)
-    number2.set_int(2)
-    print((number1 ** number2).get_float())"""
 
     number1.set_int(5)
     number2.set_int(2)
@@ -736,10 +703,8 @@ if __name__ == '__main__':
     print(number1==number1)
     print(number1!=number2)
     print(number2!=number2)
+    print()
 
-# http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
-# https://www.geeksforgeeks.org/operator-overloading-in-python/
-
-# https://t5k.org/lists/small/millions/
-# https://t5k.org/notes/faq/LongestList.html
-# http://compoasso.free.fr/primelistweb/page/prime/liste_online_en.php
+    # number1.set_num({2: 1, 3: -1, 11: 1})
+    number1.set_num(case=Num.Case.UNDEFINED, sign=Num.Sign.NEGATIVE)
+    print(float(number1))
