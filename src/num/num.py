@@ -20,7 +20,7 @@ class Num:
         Initializes Num to UNDEFINED.
         """
         self.primes: dict[int, int] = {}
-        self.special: dict[str, int] = {'pi': 0, 'e': 0, 'root': 0}
+        self.special: dict[str, int] = {'pi': 0, 'e': 0, 'root': 1}  # TODO
         self.sign: Num.Sign = Num.Sign.POSITIVE
         self.case: Num.Case = Num.Case.UNDEFINED
 
@@ -56,7 +56,7 @@ class Num:
         #
         #     if integer <= 1:
         #         break
-        for i in range(2, int(sqrt(integer))+1):
+        for i in range(2, int(sqrt(integer)) + 1):
             while integer % i == 0:
                 if i in self.primes:
                     self.primes[i] += 1 * sign.value
@@ -402,7 +402,7 @@ class Num:
         for prime in b_numerator:
             b *= prime ** b_numerator[prime]
 
-        out.set_int(a*self.sign.value + b*other.sign.value)
+        out.set_int(a * self.sign.value + b * other.sign.value)
 
         for prime in denominator:
             if prime in out.primes:
@@ -505,6 +505,66 @@ class Num:
     def __pow__(self, other):  # , power, modulo=None):
         if self.__class__ != other.__class__:
             raise TypeError
+
+        out: Num = Num()
+
+        if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
+            out.set_num(case=Num.Case.UNDEFINED)
+
+            return out
+
+        if self.case is Num.Case.ZERO:
+            out.set_num(case=Num.Case.ZERO)
+
+            return out
+
+        if other.case is Num.Case.ZERO:
+            out.set_num({})
+
+            return out
+
+        if (self.primes == {}) and (self.case is Num.Case.NUMBER):
+            if (other.case is Num.Case.INFINITY) or (2 in other.primes):
+                out.set_num({})
+
+                return out
+
+            out.set_num({}, sign=self.sign)
+
+            return out
+
+        if (other.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
+            out.set_num(case=Num.Case.INFINITY)
+
+            return out
+
+        if (self.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
+            if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
+                out.sign = Num.Sign.NEGATIVE
+
+            out.case = Num.Case.INFINITY
+
+            return out
+
+        if (other.case is Num.Case.INFINITY) or (self.case is Num.Case.INFINITY):
+            out.set_num({})
+
+            return out
+
+        out.set_num(self.primes)
+
+        if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
+            out.sign = Num.Sign.NEGATIVE
+
+        if other.sign is Num.Sign.NEGATIVE:
+            out.primes = {k: -v for k, v in out.primes.items()}
+
+        numerator, denominator = other.get_fraction()
+
+        out.primes = {k: v * abs(numerator) for k, v in out.primes.items()}
+        out.special['root'] *= denominator
+
+        return out
 
     def __lt__(self, other):
         if self.__class__ != other.__class__:
@@ -610,9 +670,15 @@ if __name__ == '__main__':
     print(number1.get_fraction())
     print()"""
 
-    print(number2.__class__ == type(number2))
-    print(type(number2))
-    print(number2.__class__)
+    """number1.set_float(-18 / 11)
+
+    print(number1)
+    print(number1.get_float())
+    print(-18 / 11)"""
+
+    number1.set_int(3)
+    number2.set_int(2)
+    print((number1 ** number2).get_float())
 
 # http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
 # https://www.geeksforgeeks.org/operator-overloading-in-python/
