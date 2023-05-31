@@ -1,4 +1,6 @@
 # Num
+[![codecov](https://codecov.io/gh/Tini4/Num/branch/master/graph/badge.svg?token=BILTI4331O)](https://codecov.io/gh/Tini4/Num)
+
 Python precise number type.
 
 ```python
