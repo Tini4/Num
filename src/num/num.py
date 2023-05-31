@@ -1,6 +1,7 @@
 from enum import Enum
 from math import inf, pi, e, sqrt  # , log10
 
+
 # from src.primes.primes import PRIMES, PRIMES_TO
 
 
@@ -56,6 +57,10 @@ class Num:
         #
         #     if integer <= 1:
         #         break
+        # todo: Fast precision
+        #  PRIMES: list[int] - highest divisor
+        #  = [(0, 1, )2, 3, 2, 5, 3, 7, 2, 3, 5]
+        #  Jakob
         for i in range(2, int(sqrt(integer)) + 1):
             while integer % i == 0:
                 if i in self.primes:
@@ -691,18 +696,18 @@ if __name__ == '__main__':
     number1.set_int(5)
     number2.set_int(2)
 
-    print(number1<number2)
-    print(number1>number2)
+    print(number1 < number2)
+    print(number1 > number2)
     print()
-    print(number1<=number2)
-    print(number1>=number2)
-    print(number2<=number2)
-    print(number1>=number1)
+    print(number1 <= number2)
+    print(number1 >= number2)
+    print(number2 <= number2)
+    print(number1 >= number1)
     print()
-    print(number1==number2)
-    print(number1==number1)
-    print(number1!=number2)
-    print(number2!=number2)
+    print(number1 == number2)
+    print(number1 == number1)
+    print(number1 != number2)
+    print(number2 != number2)
     print()
 
     # number1.set_num({2: 1, 3: -1, 11: 1})
