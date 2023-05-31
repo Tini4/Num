@@ -653,7 +653,8 @@ class TestNumGetFloat(unittest.TestCase):
     def test_undefined(self):
         number = Num()
 
-        self.assertEqual(number.get_float(), None, 'Wrong output.')
+        value = number.get_float()  # nan
+        self.assertNotEqual(value, value, 'Wrong output.')
 
     def test_one_positive(self):
         number = Num()
