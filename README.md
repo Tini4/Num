@@ -8,7 +8,7 @@ Python precise number type.
 ## Why?
 
 Because float:
-```
+```python
 print(0.1 * 3.0)         # 0.30000000000000004
 print(0.3)               # 0.3
 print(0.1 * 3.0 == 0.3)  # False
@@ -20,7 +20,7 @@ print(0.1 * 3.0 == 0.3)  # False
 
 ## Usage
 
-```
+```python
 # Importing the Num class from the library
 from num_tini4.num import Num
 
