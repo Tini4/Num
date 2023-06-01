@@ -1,6 +1,6 @@
 import unittest
 
-from src.Num_Tini4.num import Num
+from src.num_tini4.num import Num
 
 
 class TestNumEnum(unittest.TestCase):

@@ -13,7 +13,7 @@ to write your content.
 Python precise number type.
 
 ```python
-from src.Num_Tini4.num import Num
+from src.num_tini4.num import Num
 
 number1 = Num()
 number2 = Num()
