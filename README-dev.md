@@ -24,9 +24,11 @@ print(0.1 * 3.0 == 0.3)  # False
 # Importing the Num class from the library
 from src.num_tini4.num import Num
 
+
 # Declaring variables
 num1: Num = Num()
 num2: Num = Num()
+
 
 # Defining variables
 num1.set_fraction(1, 11)  # 1/11
@@ -40,6 +42,7 @@ print(repr(num2))  # Num(primes={2: 1, 3: 2}, special={'pi': 0, 'e': 0, 'root': 
 
 print(float(num1))  # 0.09090909090909091
 print(float(num2))  # -18.0
+
 
 # Operations
 print((num1 + num2).get_fraction())  # (-197, 11)
@@ -68,25 +71,24 @@ print((1/11) ** -18.0)                # 5.559917313492229e+18
 print('--------------------------------------------------')
 
 
-print()
-print(abs(num1))
+# todo
+# +=, -=, *=, /=, **=
 
+
+# Comparison
+# <, >, <=, >=, ==, !=
+
+
+# todo
+# -, abs()
+
+
+# Inaccurate!!! Slow!!! Avoid!!!
 num1.set_float(18 / 11)
-print(18 / 11)
-print(num1.get_float())
-print(num1)
-print(num1.get_fraction())
-print()
-
-num1.set_float(-18 / 11)
-
-print(num1)
-print(num1.get_float())
-print(-18 / 11)
-
-num1.set_int(3)
-num2.set_int(2)
-print((num1 ** num2).get_float())
+print(num1)                 # [NUMBER, POSITIVE, {2: -52, 19: 1, 26041: 1, 14894582557: 1}, {'pi': 0, 'e': 0, 'root': 1}]
+print(num1.get_fraction())  # (7369526662969903, 4503599627370496)
+print(num1.get_float())     # 1.6363636363636365
+print(18 / 11)              # 1.6363636363636365
 ```
 
 ## 1

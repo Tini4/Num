@@ -5,6 +5,15 @@
 
 Python precise number type.
 
+## Why?
+
+Because float:
+```
+print(0.1 * 3.0)         # 0.30000000000000004
+print(0.3)               # 0.3
+print(0.1 * 3.0 == 0.3)  # False
+```
+
 ## Installation
 
 `pip install num-tini4`
@@ -12,12 +21,14 @@ Python precise number type.
 ## Usage
 
 ```
-# Import the Num class from the library.
+# Importing the Num class from the library
 from num_tini4.num import Num
+
 
 # Declaring variables
 num1: Num = Num()
 num2: Num = Num()
+
 
 # Defining variables
 num1.set_fraction(1, 11)  # 1/11
@@ -31,6 +42,7 @@ print(repr(num2))  # Num(primes={2: 1, 3: 2}, special={'pi': 0, 'e': 0, 'root': 
 
 print(float(num1))  # 0.09090909090909091
 print(float(num2))  # -18.0
+
 
 # Operations
 print((num1 + num2).get_fraction())  # (-197, 11)
@@ -57,13 +69,24 @@ print((num1 ** num2).get_fraction())  # (5559917313492231481, 1)
 print((num1 ** num2).get_float())     # 5.559917313492231e+18
 print((1/11) ** -18.0)                # 5.559917313492229e+18
 print('--------------------------------------------------')
+
+
+# todo
+# +=, -=, *=, /=, **=
+
+
+# Comparison
+# <, >, <=, >=, ==, !=
+
+
+# todo
+# -, abs()
+
+
+# Inaccurate!!! Slow!!! Avoid!!!
+num1.set_float(18 / 11)
+print(num1)                 # [NUMBER, POSITIVE, {2: -52, 19: 1, 26041: 1, 14894582557: 1}, {'pi': 0, 'e': 0, 'root': 1}]
+print(num1.get_fraction())  # (7369526662969903, 4503599627370496)
+print(num1.get_float())     # 1.6363636363636365
+print(18 / 11)              # 1.6363636363636365
 ```
-
-## 1
-- http://www.java2s.com/Tutorials/Python/Class/Overload_divide_operator.htm
-- https://www.geeksforgeeks.org/operator-overloading-in-python/
-
-## 2
-- https://t5k.org/lists/small/millions/
-- https://t5k.org/notes/faq/LongestList.html
-- http://compoasso.free.fr/primelistweb/page/prime/liste_online_en.php

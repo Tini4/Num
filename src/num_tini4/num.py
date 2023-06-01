@@ -754,3 +754,11 @@ if __name__ == '__main__':
     print(0.1 * 3.0)         # 0.30000000000000004
     print(0.3)               # 0.3
     print(0.1 * 3.0 == 0.3)  # False
+    print('--------------------------------------------------')
+
+    # Avoid!!! Slow!!!
+    num1.set_float(18 / 11)
+    print(num1)
+    print(num1.get_fraction())
+    print(num1.get_float())
+    print(-18 / 11)
