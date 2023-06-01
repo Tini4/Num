@@ -11,9 +11,9 @@ Python precise number type.
 
 ## Usage
 
-```
+```python
 # Import the Num class from the library.
-from num_tini4.num import Num
+from src.num_tini4.num import Num
 
 # Declare variables.
 number1: Num = Num()
