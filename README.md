@@ -15,34 +15,48 @@ Python precise number type.
 # Import the Num class from the library.
 from num_tini4.num import Num
 
-# Declare variables.
-number1: Num = Num()
-number2: Num = Num()
+# Declaring variables
+num1: Num = Num()
+num2: Num = Num()
 
-# Define variables.
-number1.set_num({2: 1, 3: 2}, sign=Num.Sign.NEGATIVE)  # 18
-number2.set_num({11: -1})  # 1/11
+# Defining variables
+num1.set_fraction(1, 11)  # 1/11
+num2.set_int(-18)         # -18
 
-print((number2 + number1).get_fraction())  # 199/11
-print()
-print(abs(number1))
+print(num1)  # [NUMBER, POSITIVE, {11: -1}, {'pi': 0, 'e': 0, 'root': 1}]
+print(num2)  # [NUMBER, NEGATIVE, {2: 1, 3: 2}, {'pi': 0, 'e': 0, 'root': 1}]
 
-number1.set_float(18 / 11)
-print(18 / 11)
-print(number1.get_float())
-print(number1)
-print(number1.get_fraction())
-print()
+print(repr(num1))  # Num(primes={11: -1}, special={'pi': 0, 'e': 0, 'root': 1}, sign=<Sign.POSITIVE: 1>, case=<Case.NUMBER: 1>)
+print(repr(num2))  # Num(primes={2: 1, 3: 2}, special={'pi': 0, 'e': 0, 'root': 1}, sign=<Sign.NEGATIVE: -1>, case=<Case.NUMBER: 1>)
 
-number1.set_float(-18 / 11)
+print(float(num1))  # 0.09090909090909091
+print(float(num2))  # -18.0
 
-print(number1)
-print(number1.get_float())
-print(-18 / 11)
+# Operations
+print((num1 + num2).get_fraction())  # (-197, 11)
+print((num1 + num2).get_float())     # -17.90909090909091
+print((1/11) + -18.0)                # -17.90909090909091
+print('--------------------------------------------------')
 
-number1.set_int(3)
-number2.set_int(2)
-print((number1 ** number2).get_float())
+print((num1 - num2).get_fraction())  # (199, 11)
+print((num1 - num2).get_float())     # 18.09090909090909
+print((1/11) - -18.0)                # 18.09090909090909
+print('--------------------------------------------------')
+
+print((num1 * num2).get_fraction())  # (-18, 11)
+print((num1 * num2).get_float())     # -1.6363636363636365
+print((1/11) * -18.0)                # -1.6363636363636365
+print('--------------------------------------------------')
+
+print((num1 / num2).get_fraction())  # (-1, 198)
+print((num1 / num2).get_float())     # -0.00505050505050505
+print((1/11) / -18.0)                # -0.005050505050505051
+print('--------------------------------------------------')
+
+print((num1 ** num2).get_fraction())  # (5559917313492231481, 1)
+print((num1 ** num2).get_float())     # 5.559917313492231e+18
+print((1/11) ** -18.0)                # 5.559917313492229e+18
+print('--------------------------------------------------')
 ```
 
 ## 1

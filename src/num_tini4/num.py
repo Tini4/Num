@@ -26,10 +26,10 @@ class Num:
         self.case: Num.Case = Num.Case.UNDEFINED
 
     def __repr__(self):
-        return f"Num(primes={self.primes!r}, sign={self.sign!r}, case={self.case!r})"
+        return f"Num(primes={self.primes!r}, special={self.special!r}, sign={self.sign!r}, case={self.case!r})"
 
     def __str__(self):
-        return f'{self.case.name}, {self.sign.name}, {self.primes}'
+        return f'[{self.case.name}, {self.sign.name}, {self.primes}, {self.special}]'
 
     def _modify_prime_factorization(self, integer: int, sign: Sign):
         # if integer > PRIMES_TO:
@@ -223,7 +223,7 @@ class Num:
             if self.case is Num.Case.UNDEFINED:
                 return float('nan')
 
-        out: float = self.sign.value
+        out: float = float(self.sign.value)
 
         for prime in self.primes:
             if self.primes[prime] > 0:
@@ -715,4 +715,42 @@ if __name__ == '__main__':
     print(float(number1))
     print(number1)
 
-    # test pylint
+    print('--------------------------------------------------')
+
+    # Declare variables.
+    num1: Num = Num()
+    num2: Num = Num()
+
+    # Define variables.
+    num1.set_num({11: -1})  # 1/11
+    num2.set_int(-18)  # -18
+
+    # Operations
+    print((num1 + num2).get_fraction())  # (-197, 11)
+    print((num1 + num2).get_float())     # -17.90909090909091
+    print((1/11) + -18.0)                # -17.90909090909091
+    print('--------------------------------------------------')
+
+    print((num1 - num2).get_fraction())  # (199, 11)
+    print((num1 - num2).get_float())     # 18.09090909090909
+    print((1/11) - -18.0)                # 18.09090909090909
+    print('--------------------------------------------------')
+
+    print((num1 * num2).get_fraction())  # (-18, 11)
+    print((num1 * num2).get_float())     # -1.6363636363636365
+    print((1/11) * -18.0)                # -1.6363636363636365
+    print('--------------------------------------------------')
+
+    print((num1 / num2).get_fraction())  # (-1, 198)
+    print((num1 / num2).get_float())     # -0.00505050505050505
+    print((1/11) / -18.0)                # -0.005050505050505051
+    print('--------------------------------------------------')
+
+    print((num1 ** num2).get_fraction())  # (5559917313492231481, 1)
+    print((num1 ** num2).get_float())     # 5.559917313492231e+18
+    print((1/11) ** -18.0)                # 5.559917313492229e+18
+    print('--------------------------------------------------')
+
+    print(0.1 * 3.0)         # 0.30000000000000004
+    print(0.3)               # 0.3
+    print(0.1 * 3.0 == 0.3)  # False
