@@ -2,7 +2,7 @@ from enum import Enum
 from math import inf, pi, e, sqrt  # , log10
 
 
-# from src.primes.primes import PRIMES, PRIMES_TO
+# from primes import PRIMES, PRIMES_TO
 
 
 class Num:
@@ -713,5 +713,6 @@ if __name__ == '__main__':
     # number1.set_num({2: 1, 3: -1, 11: 1})
     number1.set_num(case=Num.Case.UNDEFINED, sign=Num.Sign.NEGATIVE)
     print(float(number1))
+    print(number1)
 
     # test pylint
