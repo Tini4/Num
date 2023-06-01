@@ -4,13 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "num_tini4"
-version = "0.0.1a1"
+version = "0.0.1a2"
 authors = [
   { name="Tini4", email="tilen.jurican@gmail.com" },
 ]
 description = "Python precise number type."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.8"
 classifiers = [
     "Development Status :: 1 - Planning",
     "Programming Language :: Python :: 3.11",
