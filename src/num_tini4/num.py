@@ -1,5 +1,5 @@
 from enum import Enum
-from math import inf, pi, e, sqrt  # , log10
+from math import inf, sqrt  # , log10
 
 
 # from primes import PRIMES, PRIMES_TO
@@ -21,15 +21,14 @@ class Num:
         Initializes Num to UNDEFINED.
         """
         self.primes: dict[int, int] = {}
-        self.special: dict[str, int] = {'pi': 0, 'e': 0, 'root': 1}  # TODO
         self.sign: Num.Sign = Num.Sign.POSITIVE
         self.case: Num.Case = Num.Case.UNDEFINED
 
     def __repr__(self):
-        return f"Num(primes={self.primes!r}, special={self.special!r}, sign={self.sign!r}, case={self.case!r})"
+        return f"Num(primes={self.primes!r}, sign={self.sign!r}, case={self.case!r})"
 
     def __str__(self):
-        return f'[{self.case.name}, {self.sign.name}, {self.primes}, {self.special}]'
+        return f'[{self.case.name}, {self.sign.name}, {self.primes}]'
 
     def _modify_prime_factorization(self, integer: int, sign: Sign):
         # if integer > PRIMES_TO:
@@ -57,6 +56,7 @@ class Num:
         #
         #     if integer <= 1:
         #         break
+        pass
         # todo: Fast precision
         #  PRIMES: list[int] - highest divisor
         #  = [(0, 1, )2, 3, 2, 5, 3, 7, 2, 3, 5]
@@ -507,69 +507,69 @@ class Num:
 
         return out
 
-    def __pow__(self, other):  # , power, modulo=None):
-        if self.__class__ != other.__class__:
-            raise TypeError
-
-        out: Num = Num()
-
-        if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
-            out.set_num(case=Num.Case.UNDEFINED)
-
-            return out
-
-        if self.case is Num.Case.ZERO:
-            out.set_num(case=Num.Case.ZERO)
-
-            return out
-
-        if other.case is Num.Case.ZERO:
-            out.set_num({})
-
-            return out
-
-        if (self.primes == {}) and (self.case is Num.Case.NUMBER):
-            if (other.case is Num.Case.INFINITY) or (2 in other.primes):
-                out.set_num({})
-
-                return out
-
-            out.set_num({}, sign=self.sign)
-
-            return out
-
-        if (other.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
-            out.set_num(case=Num.Case.INFINITY)
-
-            return out
-
-        if (self.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
-            if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
-                out.sign = Num.Sign.NEGATIVE
-
-            out.case = Num.Case.INFINITY
-
-            return out
-
-        if (other.case is Num.Case.INFINITY) or (self.case is Num.Case.INFINITY):
-            out.set_num({})
-
-            return out
-
-        out.set_num(self.primes)
-
-        if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
-            out.sign = Num.Sign.NEGATIVE
-
-        if other.sign is Num.Sign.NEGATIVE:
-            out.primes = {k: -v for k, v in out.primes.items()}
-
-        numerator, denominator = other.get_fraction()
-
-        out.primes = {k: v * abs(numerator) for k, v in out.primes.items()}
-        out.special['root'] *= denominator
-
-        return out
+    # def __pow__(self, other):  # , power, modulo=None):
+    #     if self.__class__ != other.__class__:
+    #         raise TypeError
+    #
+    #     out: Num = Num()
+    #
+    #     if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
+    #         out.set_num(case=Num.Case.UNDEFINED)
+    #
+    #         return out
+    #
+    #     if self.case is Num.Case.ZERO:
+    #         out.set_num(case=Num.Case.ZERO)
+    #
+    #         return out
+    #
+    #     if other.case is Num.Case.ZERO:
+    #         out.set_num({})
+    #
+    #         return out
+    #
+    #     if (self.primes == {}) and (self.case is Num.Case.NUMBER):
+    #         if (other.case is Num.Case.INFINITY) or (2 in other.primes):
+    #             out.set_num({})
+    #
+    #             return out
+    #
+    #         out.set_num({}, sign=self.sign)
+    #
+    #         return out
+    #
+    #     if (other.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
+    #         out.set_num(case=Num.Case.INFINITY)
+    #
+    #         return out
+    #
+    #     if (self.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
+    #         if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
+    #             out.sign = Num.Sign.NEGATIVE
+    #
+    #         out.case = Num.Case.INFINITY
+    #
+    #         return out
+    #
+    #     if (other.case is Num.Case.INFINITY) or (self.case is Num.Case.INFINITY):
+    #         out.set_num({})
+    #
+    #         return out
+    #
+    #     out.set_num(self.primes)
+    #
+    #     if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
+    #         out.sign = Num.Sign.NEGATIVE
+    #
+    #     if other.sign is Num.Sign.NEGATIVE:
+    #         out.primes = {k: -v for k, v in out.primes.items()}
+    #
+    #     numerator, denominator = other.get_fraction()
+    #
+    #     out.primes = {k: v * abs(numerator) for k, v in out.primes.items()}
+    #     out.special['root'] *= denominator
+    #
+    #     return out
 
     def __lt__(self, other):
         if self.__class__ != other.__class__:
@@ -652,9 +652,9 @@ class Num:
         if self.__class__ != other.__class__:
             raise TypeError
 
-    def __ipow__(self, other):
-        if self.__class__ != other.__class__:
-            raise TypeError
+    # def __ipow__(self, other):
+    #     if self.__class__ != other.__class__:
+    #         raise TypeError
 
     def __abs__(self):
         out: Num = Num()
