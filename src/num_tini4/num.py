@@ -709,8 +709,3 @@ if __name__ == '__main__':
     print(number1 != number2)
     print(number2 != number2)
     print()
-
-    # number1.set_num({2: 1, 3: -1, 11: 1})
-    number1.set_num(case=Num.Case.UNDEFINED, sign=Num.Sign.NEGATIVE)
-    print(float(number1))
-    print(number1)
