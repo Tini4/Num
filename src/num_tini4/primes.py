@@ -1,2 +1,2 @@
-PRIMES_TO: int = 1000000  # 1,000,000
+PRIMES_TO: int | None = None
 PRIMES: list[int] = []

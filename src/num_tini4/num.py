@@ -1,8 +1,7 @@
 from enum import Enum
 from math import inf, sqrt  # , log10
 
-
-# from primes import PRIMES, PRIMES_TO
+from primes import PRIMES, PRIMES_TO
 
 
 class Num:
@@ -507,70 +506,6 @@ class Num:
 
         return out
 
-    # def __pow__(self, other):  # , power, modulo=None):
-    #     if self.__class__ != other.__class__:
-    #         raise TypeError
-    #
-    #     out: Num = Num()
-    #
-    #     if (self.case is Num.Case.UNDEFINED) or (other.case is Num.Case.UNDEFINED):
-    #         out.set_num(case=Num.Case.UNDEFINED)
-    #
-    #         return out
-    #
-    #     if self.case is Num.Case.ZERO:
-    #         out.set_num(case=Num.Case.ZERO)
-    #
-    #         return out
-    #
-    #     if other.case is Num.Case.ZERO:
-    #         out.set_num({})
-    #
-    #         return out
-    #
-    #     if (self.primes == {}) and (self.case is Num.Case.NUMBER):
-    #         if (other.case is Num.Case.INFINITY) or (2 in other.primes):
-    #             out.set_num({})
-    #
-    #             return out
-    #
-    #         out.set_num({}, sign=self.sign)
-    #
-    #         return out
-    #
-    #     if (other.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
-    #         out.set_num(case=Num.Case.INFINITY)
-    #
-    #         return out
-    #
-    #     if (self.case is Num.Case.INFINITY) and (other.sign is Num.Sign.POSITIVE):
-    #         if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
-    #             out.sign = Num.Sign.NEGATIVE
-    #
-    #         out.case = Num.Case.INFINITY
-    #
-    #         return out
-    #
-    #     if (other.case is Num.Case.INFINITY) or (self.case is Num.Case.INFINITY):
-    #         out.set_num({})
-    #
-    #         return out
-    #
-    #     out.set_num(self.primes)
-    #
-    #     if (self.sign is Num.Sign.NEGATIVE) and (2 not in other.primes):
-    #         out.sign = Num.Sign.NEGATIVE
-    #
-    #     if other.sign is Num.Sign.NEGATIVE:
-    #         out.primes = {k: -v for k, v in out.primes.items()}
-    #
-    #     numerator, denominator = other.get_fraction()
-    #
-    #     out.primes = {k: v * abs(numerator) for k, v in out.primes.items()}
-    #     out.special['root'] *= denominator
-    #
-    #     return out
-
     def __lt__(self, other):
         if self.__class__ != other.__class__:
             raise TypeError
@@ -652,10 +587,6 @@ class Num:
         if self.__class__ != other.__class__:
             raise TypeError
 
-    # def __ipow__(self, other):
-    #     if self.__class__ != other.__class__:
-    #         raise TypeError
-
     def __abs__(self):
         out: Num = Num()
 
@@ -685,9 +616,9 @@ class Num:
 
 
 if __name__ == '__main__':
-    try:
-        print(f'Fast precision: {PRIMES_TO:,}\n')
-    except NameError:
+    if PRIMES_TO is not None:
+        print(f'Fast precision to: {PRIMES_TO:,}\n')
+    else:
         print('Precision: infinite\n')
 
     number1 = Num()

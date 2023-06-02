@@ -25,12 +25,12 @@ print(0.1 * 3.0 == 0.3)  # False
 from src.num_tini4.num import Num
 
 
-# Declaring variables
+# Declare variables
 num1: Num = Num()
 num2: Num = Num()
 
 
-# Defining variables
+# Define variables
 num1.set_fraction(1, 11)  # 1/11
 num2.set_int(-18)         # -18
 
@@ -70,7 +70,7 @@ print('--------------------------------------------------')
 # +=, -=, *=, /=
 
 
-# Comparison
+# Comparisons
 # <, >, <=, >=, ==, !=
 
 
