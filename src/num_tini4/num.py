@@ -231,18 +231,32 @@ class Num:
             else:
                 out /= prime ** -self.primes[prime]
 
+        if self.special['pi'] != 0:
+            if self.special['pi'] > 0:
+                out *= pi ** self.special['pi']
+            else:
+                out /= pi ** -self.special['pi']
+
+        if self.special['e'] != 0:
+            if self.special['e'] > 0:
+                out *= e ** self.special['e']
+            else:
+                out /= e ** -self.special['e']
+
+        out **= 1 / self.special['root']
+
         return out
 
-    def get_fraction(self) -> tuple[int, int] | tuple[float, int] | None:
+    def get_fraction(self) -> tuple[str, str, str]:
         if self.case is not Num.Case.NUMBER:
             if self.case is Num.Case.ZERO:
-                return 0, 1
+                return '0', '1', '^(1/1)'
 
             if self.case is Num.Case.INFINITY:
-                return float('inf') * self.sign.value, 1
+                return f'{"" if self.sign is Num.Sign.POSITIVE else "-"}inf', '1', '^(1/1)'
 
             if self.case is Num.Case.UNDEFINED:
-                return None
+                return 'nan', '1', '^(1/1)'
 
         numerator: int = self.sign.value
         denominator: int = 1
@@ -253,7 +267,22 @@ class Num:
             else:
                 denominator *= prime ** -self.primes[prime]
 
-        return numerator, denominator
+        numerator: str = str(numerator)
+        denominator: str = str(denominator)
+
+        if self.special['pi'] != 0:
+            if self.special['pi'] > 0:
+                numerator += f'*pi^{self.special["pi"]}'
+            else:
+                denominator += f'*pi^{-self.special["pi"]}'
+
+        if self.special['e'] != 0:
+            if self.special['e'] > 0:
+                numerator += f'*e^{self.special["e"]}'
+            else:
+                denominator += f'e^{-self.special["e"]}'
+
+        return numerator, denominator, f'^(1/{self.special["root"]})'
 
     def __mul__(self, other):
         if self.__class__ != other.__class__:
@@ -564,7 +593,7 @@ class Num:
         if other.sign is Num.Sign.NEGATIVE:
             out.primes = {k: -v for k, v in out.primes.items()}
 
-        numerator, denominator = other.get_fraction()
+        numerator, denominator = other.get_fraction()  # TODO
 
         out.primes = {k: v * abs(numerator) for k, v in out.primes.items()}
         out.special['root'] *= denominator
