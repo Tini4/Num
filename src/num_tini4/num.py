@@ -1,7 +1,7 @@
 from enum import Enum
 from math import inf, sqrt  # , log10
 
-from primes import PRIMES, PRIMES_TO
+from src.primes.primes import PRIMES, PRIMES_TO
 
 
 class Num:
