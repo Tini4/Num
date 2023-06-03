@@ -18,7 +18,9 @@ print(0.1 * 3.0 == 0.3)  # False
 
 ## Installation
 
-```pip install num-tini4```
+```
+pip install num-tini4
+```
 
 ## Usage
 
