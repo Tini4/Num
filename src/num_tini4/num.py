@@ -1,6 +1,7 @@
 from enum import Enum
 from math import inf, sqrt  # , log10
 
+# noinspection PyUnresolvedReferences
 from src.primes.primes import PRIMES, PRIMES_TO
 
 
@@ -29,38 +30,30 @@ class Num:
     def __str__(self):
         return f'[{self.case.name}, {self.sign.name}, {self.primes}]'
 
-    def _modify_prime_factorization(self, integer: int, sign: Sign):
-        # if integer > PRIMES_TO:
-        #     size_integer: int = int(log10(integer)) + 1
-        #     size_primes: int = int(log10(PRIMES_TO)) + 1
-        #
-        #     over: int = size_integer - size_primes + 1
-        #
-        #     integer //= 10 ** over
-        #
-        #     for prime in [2, 5]:
-        #         if prime in self.primes:
-        #             self.primes[prime] += over * sign.value
-        #         else:
-        #             self.primes[prime] = over * sign.value
-        #
-        # for prime in PRIMES:
-        #     while integer % prime == 0:
-        #         if prime in self.primes:
-        #             self.primes[prime] += 1 * sign.value
-        #         else:
-        #             self.primes[prime] = 1 * sign.value
-        #
-        #         integer //= prime
-        #
-        #     if integer <= 1:
-        #         break
-        pass
-        # todo: Fast precision
-        #  PRIMES: list[int] - highest divisor
-        #  = [(0, 1, )2, 3, 2, 5, 3, 7, 2, 3, 5]
-        #  Jakob
+    def _modify_prime_factorization(self, integer: int, sign: Sign) -> None:
+        """
+        Modifies the primes' factorization.
+        :param integer: Number to be factorized
+        :param sign: Add or remove primes' quantities (+, -)
+        :return: None
+        """
+        if integer < 2:
+            return
+
         for i in range(2, int(sqrt(integer)) + 1):
+            # Fast precision
+            if integer <= PRIMES_TO:
+                while integer > 1:
+                    if PRIMES[integer] in self.primes:
+                        self.primes[PRIMES[integer]] += 1 * sign.value
+                    else:
+                        self.primes[PRIMES[integer]] = 1 * sign.value
+
+                    integer //= PRIMES[integer]
+
+                break
+
+            # Slow precision
             while integer % i == 0:
                 if i in self.primes:
                     self.primes[i] += 1 * sign.value
@@ -69,16 +62,18 @@ class Num:
 
                 integer //= i
 
-            if integer <= 1:
-                break
-
+        # Integer is a prime
         if integer > 1:
             if integer in self.primes:
                 self.primes[integer] += 1 * sign.value
             else:
                 self.primes[integer] = 1 * sign.value
 
-    def _clean_values(self):
+    def _clean_values(self) -> None:
+        """
+        Handles cases, removes 0 values from primes and orders them.
+        :return: None
+        """
         if self.case is not Num.Case.NUMBER:
             self.primes: dict[int, int] = {}
 
@@ -93,8 +88,8 @@ class Num:
     def set_num(self, primes: dict[int, int] | None = None, sign: Sign = Sign.POSITIVE,
                 case: Case = Case.NUMBER) -> None:
         """
-        Sets Num to Num components.
-        :param primes: Dictionary of primes quantities
+        Sets Num to the Num components.
+        :param primes: Dictionary of primes' quantities
         :param sign: Sign of Num (+, -)
         :param case: Case of Num (NUMBER, ZERO, INFINITY, UNDEFINED)
         :return: None
@@ -119,7 +114,7 @@ class Num:
 
     def set_int(self, integer: int) -> None:
         """
-        Sets Num to integer.
+        Sets Num to an integer.
         :param integer: Integer to set Num to
         :return: None
         """
@@ -142,8 +137,8 @@ class Num:
 
     def set_float(self, float_: float) -> None:
         """
-        Sets Num to float.
-        :param float_: Float to set Num to
+        Sets Num to a float.
+        :param float\_: Float to set Num to
         :return: None
         """
         self.primes: dict[int, int] = {}
@@ -180,6 +175,14 @@ class Num:
         self._clean_values()
 
     def set_fraction(self, numerator: int, denominator: int) -> None:
+        """
+        Sets Num to a fraction.
+        :param numerator: Numerator to set Num to
+        :type numerator: int
+        :param denominator: Denominator to set Num to
+        :type denominator: int
+        :return: None
+        """
         self.primes: dict[int, int] = {}
         self.case: Num.Case = Num.Case.NUMBER
 

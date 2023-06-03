@@ -96,3 +96,7 @@ print(18 / 11)              # 1.6363636363636365
 - https://t5k.org/lists/small/millions/
 - https://t5k.org/notes/faq/LongestList.html
 - http://compoasso.free.fr/primelistweb/page/prime/liste_online_en.php
+
+## 3
+- https://www.sphinx-doc.org/en/master/usage/quickstart.html
+- https://towardsdatascience.com/documenting-python-code-with-sphinx-554e1d6c4f6d
