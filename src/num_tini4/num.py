@@ -33,8 +33,9 @@ class Num:
     def _modify_prime_factorization(self, integer: int, sign: Sign) -> None:
         """
         Modifies the primes' factorization.
-        :param integer: Number to be factorized
-        :param sign: Add or remove primes' quantities (+, -)
+
+        :param int integer: Number to be factorized
+        :param Sign sign: Add or remove primes' quantities (+, -)
         :return: None
         """
         if integer < 2:
@@ -72,6 +73,7 @@ class Num:
     def _clean_values(self) -> None:
         """
         Handles cases, removes 0 values from primes and orders them.
+
         :return: None
         """
         if self.case is not Num.Case.NUMBER:
@@ -89,9 +91,10 @@ class Num:
                 case: Case = Case.NUMBER) -> None:
         """
         Sets Num to the Num components.
-        :param primes: Dictionary of primes' quantities
-        :param sign: Sign of Num (+, -)
-        :param case: Case of Num (NUMBER, ZERO, INFINITY, UNDEFINED)
+
+        :param dict[int, int] | None primes: Dictionary of primes' quantities
+        :param Sign sign: Sign of Num (+, -)
+        :param Case case: Case of Num (NUMBER, ZERO, INFINITY, UNDEFINED)
         :return: None
         """
         self.primes: dict[int, int] = {}
@@ -115,7 +118,8 @@ class Num:
     def set_int(self, integer: int) -> None:
         """
         Sets Num to an integer.
-        :param integer: Integer to set Num to
+
+        :param int integer: Integer to set Num to
         :return: None
         """
         self.primes: dict[int, int] = {}
@@ -138,7 +142,8 @@ class Num:
     def set_float(self, float_: float) -> None:
         """
         Sets Num to a float.
-        :param float\_: Float to set Num to
+
+        :param float float\_: Float to set Num to
         :return: None
         """
         self.primes: dict[int, int] = {}
@@ -177,10 +182,9 @@ class Num:
     def set_fraction(self, numerator: int, denominator: int) -> None:
         """
         Sets Num to a fraction.
-        :param numerator: Numerator to set Num to
-        :type numerator: int
-        :param denominator: Denominator to set Num to
-        :type denominator: int
+
+        :param int numerator: Numerator to set Num to
+        :param int denominator: Denominator to set Num to
         :return: None
         """
         self.primes: dict[int, int] = {}
@@ -215,6 +219,12 @@ class Num:
         self._clean_values()
 
     def get_float(self) -> float:
+        """
+        Returns float value of Num
+
+        :return: Value of Num
+        :rtype: float
+        """
         if self.case is not Num.Case.NUMBER:
             if self.case is Num.Case.ZERO:
                 return 0.0
@@ -236,6 +246,12 @@ class Num:
         return out
 
     def get_fraction(self) -> tuple[int, int] | tuple[float, int] | None:
+        """
+        Returns fraction value of Num
+
+        :return: Value of Num
+        :rtype: tuple[int, int] | tuple[float, int] | None
+        """
         if self.case is not Num.Case.NUMBER:
             if self.case is Num.Case.ZERO:
                 return 0, 1

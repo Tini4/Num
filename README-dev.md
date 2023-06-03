@@ -100,3 +100,9 @@ print(18 / 11)              # 1.6363636363636365
 ## 3
 - https://www.sphinx-doc.org/en/master/usage/quickstart.html
 - https://towardsdatascience.com/documenting-python-code-with-sphinx-554e1d6c4f6d
+
+## 4
+- https://stackoverflow.com/questions/26344081/efficient-prime-factorization-for-large-numbers#26344929
+
+make html
+make clean html

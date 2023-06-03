@@ -104,8 +104,9 @@
     <span class="k">def</span> <span class="nf">_modify_prime_factorization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">integer</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="n">Sign</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Modifies the primes&#39; factorization.</span>
-<span class="sd">        :param integer: Number to be factorized</span>
-<span class="sd">        :param sign: Add or remove primes&#39; quantities (+, -)</span>
+
+<span class="sd">        :param int integer: Number to be factorized</span>
+<span class="sd">        :param Sign sign: Add or remove primes&#39; quantities (+, -)</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">integer</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -143,6 +144,7 @@
     <span class="k">def</span> <span class="nf">_clean_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handles cases, removes 0 values from primes and orders them.</span>
+
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">case</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Num</span><span class="o">.</span><span class="n">Case</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">:</span>
@@ -160,9 +162,10 @@
                 <span class="n">case</span><span class="p">:</span> <span class="n">Case</span> <span class="o">=</span> <span class="n">Case</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets Num to the Num components.</span>
-<span class="sd">        :param primes: Dictionary of primes&#39; quantities</span>
-<span class="sd">        :param sign: Sign of Num (+, -)</span>
-<span class="sd">        :param case: Case of Num (NUMBER, ZERO, INFINITY, UNDEFINED)</span>
+
+<span class="sd">        :param dict[int, int] | None primes: Dictionary of primes&#39; quantities</span>
+<span class="sd">        :param Sign sign: Sign of Num (+, -)</span>
+<span class="sd">        :param Case case: Case of Num (NUMBER, ZERO, INFINITY, UNDEFINED)</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">primes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -186,7 +189,8 @@
 <div class="viewcode-block" id="Num.set_int"><a class="viewcode-back" href="../../../src.num_tini4.html#src.num_tini4.num.Num.set_int">[docs]</a>    <span class="k">def</span> <span class="nf">set_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">integer</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets Num to an integer.</span>
-<span class="sd">        :param integer: Integer to set Num to</span>
+
+<span class="sd">        :param int integer: Integer to set Num to</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">primes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -209,7 +213,8 @@
 <div class="viewcode-block" id="Num.set_float"><a class="viewcode-back" href="../../../src.num_tini4.html#src.num_tini4.num.Num.set_float">[docs]</a>    <span class="k">def</span> <span class="nf">set_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">float_</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets Num to a float.</span>
-<span class="sd">        :param float\_: Float to set Num to</span>
+
+<span class="sd">        :param float float\_: Float to set Num to</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">primes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -248,10 +253,9 @@
 <div class="viewcode-block" id="Num.set_fraction"><a class="viewcode-back" href="../../../src.num_tini4.html#src.num_tini4.num.Num.set_fraction">[docs]</a>    <span class="k">def</span> <span class="nf">set_fraction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numerator</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">denominator</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets Num to a fraction.</span>
-<span class="sd">        :param numerator: Numerator to set Num to</span>
-<span class="sd">        :type numerator: int</span>
-<span class="sd">        :param denominator: Denominator to set Num to</span>
-<span class="sd">        :type denominator: int</span>
+
+<span class="sd">        :param int numerator: Numerator to set Num to</span>
+<span class="sd">        :param int denominator: Denominator to set Num to</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">primes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -286,6 +290,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_clean_values</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Num.get_float"><a class="viewcode-back" href="../../../src.num_tini4.html#src.num_tini4.num.Num.get_float">[docs]</a>    <span class="k">def</span> <span class="nf">get_float</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns float value of Num</span>
+
+<span class="sd">        :return: Value of Num</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">case</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Num</span><span class="o">.</span><span class="n">Case</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">case</span> <span class="ow">is</span> <span class="n">Num</span><span class="o">.</span><span class="n">Case</span><span class="o">.</span><span class="n">ZERO</span><span class="p">:</span>
                 <span class="k">return</span> <span class="mf">0.0</span>
@@ -307,6 +317,12 @@
         <span class="k">return</span> <span class="n">out</span></div>
 
 <div class="viewcode-block" id="Num.get_fraction"><a class="viewcode-back" href="../../../src.num_tini4.html#src.num_tini4.num.Num.get_fraction">[docs]</a>    <span class="k">def</span> <span class="nf">get_fraction</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns fraction value of Num</span>
+
+<span class="sd">        :return: Value of Num</span>
+<span class="sd">        :rtype: tuple[int, int] | tuple[float, int] | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">case</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Num</span><span class="o">.</span><span class="n">Case</span><span class="o">.</span><span class="n">NUMBER</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">case</span> <span class="ow">is</span> <span class="n">Num</span><span class="o">.</span><span class="n">Case</span><span class="o">.</span><span class="n">ZERO</span><span class="p">:</span>
                 <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>

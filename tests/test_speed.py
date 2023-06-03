@@ -11,7 +11,7 @@ class TestSpeedNum(unittest.TestCase):
         number = Num()
 
         for _ in range(10**5):
-            number.set_int(1000000)
+            number.set_int(1000000*2)
 
     def test_prime_factorization_slow(self):
         number = Num()
