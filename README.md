@@ -5,6 +5,8 @@
 
 Python precise number type.
 
+[![CC BY-NC-ND](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
+
 ## Why?
 
 Because float:
@@ -21,7 +23,7 @@ print(0.1 * 3.0 == 0.3)  # False
 ## Usage
 
 ```python
-# Import the Num class from the library
+# Import the Num class
 from num_tini4.num import Num
 
 
@@ -44,7 +46,7 @@ print(float(num1))  # 0.09090909090909091
 print(float(num2))  # -18.0
 
 
-# Operations
+# Arithmetic Operators
 print((num1 + num2).get_fraction())  # (-197, 11)
 print((num1 + num2).get_float())     # -17.90909090909091
 print((1 / 11) + -18.0)              # -17.90909090909091
@@ -66,16 +68,16 @@ print((1 / 11) / -18.0)              # -0.005050505050505051
 print('--------------------------------------------------')
 
 
-# todo
-# +=, -=, *=, /=
+# todo: Assignment Operators
+#  +=, -=, *=, /=
 
 
-# Comparisons
-# <, >, <=, >=, ==, !=
+# todo: Comparison Operators
+#  <, >, <=, >=, ==, !=
 
 
-# todo
-# -, abs()
+# Other
+# -, abs(), float()
 
 
 # Inaccurate!!! Slow!!! Avoid!!!
