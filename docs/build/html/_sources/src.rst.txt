@@ -1,5 +1,5 @@
-src package
-===========
+src
+===
 
 Subpackages
 -----------
@@ -9,11 +9,3 @@ Subpackages
 
    src.num_tini4
    src.primes
-
-Module contents
----------------
-
-.. automodule:: src
-   :members:
-   :undoc-members:
-   :show-inheritance:
