@@ -4,11 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "num_tini4"
-version = "0.1.1a1"
+version = "0.1.1a2"
 authors = [
   { name="Tini4", email="tilen.jurican@gmail.com" },
 ]
 description = "Python precise number type."
+license = {file = "LICENSE"}
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
@@ -19,6 +20,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
+packages = ["num_tini4", "primes"]
 
 [project.urls]
 "Documentation" = "https://github.com/Tini4/Num/wiki"

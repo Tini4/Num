@@ -111,3 +111,5 @@ print(18 / 11)              # 1.6363636363636365
 
 make html
 make clean html
+
+* https://www.freecodecamp.org/news/how-to-create-and-upload-your-first-python-package-to-pypi/
