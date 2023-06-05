@@ -26,17 +26,15 @@ pip install num-tini4
 
 ```python
 # Import the Num class
-from src.num_tini4.num import Num
-
+from num_tini4.num import Num
 
 # Declare variables
 num1: Num = Num()
 num2: Num = Num()
 
-
 # Define variables
 num1.set_fraction(1, 11)  # 1/11
-num2.set_int(-18)         # -18
+num2.set_int(-18)  # -18
 
 print(num1)  # [NUMBER, POSITIVE, {11: -1}]
 print(num2)  # [NUMBER, NEGATIVE, {2: 1, 3: 2}]
@@ -47,28 +45,26 @@ print(repr(num2))  # Num(primes={2: 1, 3: 2}, sign=<Sign.NEGATIVE: -1>, case=<Ca
 print(float(num1))  # 0.09090909090909091
 print(float(num2))  # -18.0
 
-
 # Arithmetic Operators
 print((num1 + num2).get_fraction())  # (-197, 11)
-print((num1 + num2).get_float())     # -17.90909090909091
-print((1 / 11) + -18.0)              # -17.90909090909091
+print((num1 + num2).get_float())  # -17.90909090909091
+print((1 / 11) + -18.0)  # -17.90909090909091
 print('--------------------------------------------------')
 
 print((num1 - num2).get_fraction())  # (199, 11)
-print((num1 - num2).get_float())     # 18.09090909090909
-print((1 / 11) - -18.0)              # 18.09090909090909
+print((num1 - num2).get_float())  # 18.09090909090909
+print((1 / 11) - -18.0)  # 18.09090909090909
 print('--------------------------------------------------')
 
 print((num1 * num2).get_fraction())  # (-18, 11)
-print((num1 * num2).get_float())     # -1.6363636363636365
-print((1 / 11) * -18.0)              # -1.6363636363636365
+print((num1 * num2).get_float())  # -1.6363636363636365
+print((1 / 11) * -18.0)  # -1.6363636363636365
 print('--------------------------------------------------')
 
 print((num1 / num2).get_fraction())  # (-1, 198)
-print((num1 / num2).get_float())     # -0.00505050505050505
-print((1 / 11) / -18.0)              # -0.005050505050505051
+print((num1 / num2).get_float())  # -0.00505050505050505
+print((1 / 11) / -18.0)  # -0.005050505050505051
 print('--------------------------------------------------')
-
 
 # todo: Assignment Operators
 #  +=, -=, *=, /=
@@ -84,10 +80,10 @@ print('--------------------------------------------------')
 
 # Inaccurate!!! Slow!!! Avoid!!!
 num1.set_float(18 / 11)
-print(num1)                 # [NUMBER, POSITIVE, {2: -52, 19: 1, 26041: 1, 14894582557: 1}]
+print(num1)  # [NUMBER, POSITIVE, {2: -52, 19: 1, 26041: 1, 14894582557: 1}]
 print(num1.get_fraction())  # (7369526662969903, 4503599627370496)
-print(num1.get_float())     # 1.6363636363636365
-print(18 / 11)              # 1.6363636363636365
+print(num1.get_float())  # 1.6363636363636365
+print(18 / 11)  # 1.6363636363636365
 ```
 
 ## 1

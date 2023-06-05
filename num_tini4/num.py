@@ -2,7 +2,7 @@ from enum import Enum
 from math import inf, sqrt  # , log10
 
 # noinspection PyUnresolvedReferences
-from src.primes.primes import PRIMES, PRIMES_TO
+from num_tini4.primes import PRIMES, PRIMES_TO
 
 
 class Num:
