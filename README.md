@@ -2,6 +2,7 @@
 
 [![Pylint](https://github.com/Tini4/Num/actions/workflows/pylint.yml/badge.svg)](https://github.com/Tini4/Num/actions/workflows/pylint.yml)
 [![CodeCov](https://codecov.io/gh/Tini4/Num/branch/master/graph/badge.svg?token=BILTI4331O)](https://codecov.io/gh/Tini4/Num)
+[![Test](https://github.com/Tini4/Num/actions/workflows/test.yml/badge.svg)](https://github.com/Tini4/Num/actions/workflows/test.yml)
 
 Python precise number type.
 
