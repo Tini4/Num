@@ -87,8 +87,7 @@ class Num:
 
         self.primes: dict[int, int] = {k: v for k, v in sorted(self.primes.items()) if v}
 
-    def set_num(self, primes: dict[int, int] | None = None, sign: Sign = Sign.POSITIVE,
-                case: Case = Case.NUMBER) -> None:
+    def set_num(self, primes: dict[int, int] | None = None, sign: Sign = Sign.POSITIVE, case: Case = Case.NUMBER) -> None:
         """
         Sets Num to the Num components.
 
@@ -245,7 +244,7 @@ class Num:
 
         return out
 
-    def get_fraction(self) -> tuple[int, int] | tuple[float, int] | None:
+    def get_fraction(self) -> tuple[int, int] | tuple[float, int]:
         """
         Returns fraction value of Num
 
@@ -260,7 +259,7 @@ class Num:
                 return float('inf') * self.sign.value, 1
 
             if self.case is Num.Case.UNDEFINED:
-                return None
+                return float('nan'), 1
 
         numerator: int = self.sign.value
         denominator: int = 1

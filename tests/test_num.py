@@ -713,7 +713,9 @@ class TestNumGetFraction(unittest.TestCase):
     def test_undefined(self):
         number = Num()
 
-        self.assertEqual(number.get_fraction(), None, 'Wrong output.')
+        value = number.get_fraction()  # (nan, 1)
+        self.assertNotEqual(value[0], value[0], 'Wrong output.')
+        self.assertEqual(value[1], 1, 'Wrong output.')
 
     def test_one_positive(self):
         number = Num()
