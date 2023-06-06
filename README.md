@@ -26,7 +26,7 @@ pip install num-tini4
 
 ```python
 # Import the Num class
-from num_tini4.num import Num
+from num_tini4 import Num
 
 
 # Declare variables
