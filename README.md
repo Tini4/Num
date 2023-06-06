@@ -26,7 +26,7 @@ pip install num-tini4
 
 ```python
 # Import the Num class
-from num_tini4.num import Num
+from num_tini4 import Num
 
 
 # Declare variables
@@ -69,9 +69,14 @@ print((num1 / num2).get_float())     # -0.00505050505050505
 print((1 / 11) / -18.0)              # -0.005050505050505051
 print('--------------------------------------------------')
 
+print((num1 ** num2).get_fraction())  # (5559917313492231481, 1)
+print((num1 ** num2).get_float())     # 5.559917313492231e+18
+print((1 / 11) ** -18.0)              # 5.559917313492229e+18
+print('--------------------------------------------------')
+
 
 # todo: Assignment Operators
-#  +=, -=, *=, /=
+#  +=, -=, *=, /=, **=
 
 
 # todo: Comparison Operators
